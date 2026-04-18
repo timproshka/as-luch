@@ -1,0 +1,94 @@
+---
+import { SITE } from '../lib/site';
+---
+
+<section class="stats" id="stats">
+  <div class="stats__inner">
+    <div class="stats__head reveal">
+      <span class="eyebrow">Цифры</span>
+      <h2>Автошкола, которой можно доверить&nbsp;близких</h2>
+      <p>
+        Мы&nbsp;не&nbsp;школа-однодневка. «АС-Луч» работает&nbsp;в&nbsp;Перми с&nbsp;2002&nbsp;года — за&nbsp;это время мы&nbsp;выпустили тысячи водителей и&nbsp;отладили каждый этап обучения до&nbsp;автоматизма.
+      </p>
+    </div>
+
+    <div class="stats__grid" data-stagger>
+      {SITE.stats.map((s) => (
+        <article class="stat-card">
+          <div class="stat-card__value">
+            <span class="counter-value" data-target={String(s.value)} data-suffix={s.suffix}>0{s.suffix}</span>
+          </div>
+          <div class="stat-card__label">{s.label}</div>
+        </article>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style>
+  .stats {
+    padding: 6rem 1.25rem 4rem;
+  }
+  .stats__inner {
+    max-width: 1240px;
+    margin: 0 auto;
+  }
+  .stats__head {
+    max-width: 720px;
+    margin-bottom: 3.25rem;
+  }
+  .eyebrow {
+    display: inline-block;
+    padding: 0.35rem 0.8rem;
+    border-radius: 999px;
+    background: var(--color-brand-navy-50);
+    color: var(--color-brand-navy);
+    font-weight: 600;
+    font-size: 0.78rem;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    margin-bottom: 1rem;
+  }
+  .stats__head p {
+    font-size: 1.125rem;
+    color: var(--color-brand-muted);
+    max-width: 58ch;
+    margin-top: 1rem;
+  }
+  .stats__grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1.5rem;
+  }
+  .stat-card {
+    background: white;
+    padding: 2rem 1.75rem;
+    border-radius: 20px;
+    border: 1px solid var(--color-brand-border);
+    transition: transform 0.3s, box-shadow 0.3s;
+  }
+  .stat-card:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-card);
+  }
+  .stat-card__value {
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: clamp(2.5rem, 4vw, 3.5rem);
+    color: var(--color-brand-navy);
+    line-height: 1;
+    letter-spacing: -0.03em;
+  }
+  .stat-card__label {
+    color: var(--color-brand-muted);
+    font-size: 0.95rem;
+    margin-top: 0.75rem;
+    line-height: 1.4;
+  }
+  @media (max-width: 900px) {
+    .stats__grid { grid-template-columns: 1fr 1fr; }
+  }
+  @media (max-width: 640px) {
+    .stats { padding: 4rem 1rem 2.5rem; }
+  }
+</style>

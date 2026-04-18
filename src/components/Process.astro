@@ -1,0 +1,219 @@
+---
+const steps = [
+  {
+    n: '01',
+    title: 'Запись и документы',
+    duration: '1 день',
+    desc: 'Приходите в любой филиал с паспортом и медсправкой. Подписываем договор и закрепляем место в группе.',
+  },
+  {
+    n: '02',
+    title: 'Теория',
+    duration: '≈ 1 месяц',
+    desc: 'ПДД, безопасность, устройство автомобиля, медподготовка. Очные занятия + онлайн-тренажёр для самоподготовки.',
+  },
+  {
+    n: '03',
+    title: 'Вождение',
+    duration: '≈ 1,5 месяца',
+    desc: 'Автодром (парковка, эстакада, развороты), затем город. Минимум 56 часов практики по программе.',
+  },
+  {
+    n: '04',
+    title: 'Экзамен в ГИБДД',
+    duration: '1 день',
+    desc: 'Внутренний экзамен в автошколе, затем экзамен в ГИБДД на Бульваре Гагарина 80. Мы рядом на каждом этапе.',
+  },
+];
+---
+
+<section class="process" id="process">
+  <div class="process__inner">
+    <div class="process__head reveal">
+      <span class="eyebrow">Путь ученика</span>
+      <h2>Как&nbsp;проходит обучение</h2>
+      <p>Четыре понятных этапа. Никакой бюрократии — вся&nbsp;рутина на&nbsp;нас.</p>
+    </div>
+
+    <div class="process__grid" data-stagger>
+      {steps.map((s, i) => (
+        <article class="step">
+          <div class="step__head">
+            <span class="step__n">{s.n}</span>
+            <span class="step__dur">{s.duration}</span>
+          </div>
+          <h3>{s.title}</h3>
+          <p>{s.desc}</p>
+          {i < steps.length - 1 && (
+            <svg class="step__arrow" width="28" height="14" viewBox="0 0 28 14" fill="none" aria-hidden="true">
+              <path d="M1 7h25M20 1l6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          )}
+        </article>
+      ))}
+    </div>
+
+    <div class="process__visual reveal">
+      <div class="process__photo">
+        <img src="/images/process/process-01.jpg" alt="Ученик за рулём учебного автомобиля с инструктором" loading="lazy" onerror="this.parentElement.classList.add('no-photo')" />
+      </div>
+      <div class="process__visual-content">
+        <h3>Экзамен в ГИБДД — самое волнительное, но&nbsp;не&nbsp;самое страшное</h3>
+        <p>
+          Каждый экзамен сдаётся на&nbsp;том&nbsp;же учебном автомобиле, на&nbsp;котором вы&nbsp;учились. Квалифицированный экзамен проходит в&nbsp;три этапа: теория, автодром, город. Если не&nbsp;сдали часть — пересдаётся только&nbsp;она, не&nbsp;всё сразу.
+        </p>
+        <a href="#faq" class="text-link">Частые вопросы об&nbsp;экзамене →</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .process {
+    padding: 5rem 1.25rem;
+    background:
+      radial-gradient(ellipse 60% 80% at 100% 0%, rgba(30, 58, 138, 0.04), transparent 60%),
+      var(--color-brand-cream);
+  }
+  .process__inner {
+    max-width: 1240px;
+    margin: 0 auto;
+  }
+  .process__head {
+    max-width: 640px;
+    margin-bottom: 3rem;
+  }
+  .process__head p {
+    font-size: 1.125rem;
+    color: var(--color-brand-muted);
+    margin-top: 1rem;
+  }
+
+  .process__grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1.5rem;
+    margin-bottom: 4rem;
+  }
+  .step {
+    position: relative;
+    background: white;
+    border-radius: 18px;
+    padding: 1.75rem;
+    border: 1px solid var(--color-brand-border);
+    transition: transform 0.3s, box-shadow 0.3s;
+  }
+  .step:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-card);
+  }
+  .step__head {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+  }
+  .step__n {
+    font-family: var(--font-display);
+    font-weight: 800;
+    font-size: 2.25rem;
+    color: var(--color-brand-orange);
+    line-height: 1;
+    letter-spacing: -0.04em;
+  }
+  .step__dur {
+    font-size: 0.78rem;
+    color: var(--color-brand-muted);
+    font-weight: 600;
+    padding: 0.3rem 0.6rem;
+    background: var(--color-brand-navy-50);
+    color: var(--color-brand-navy);
+    border-radius: 999px;
+  }
+  .step h3 {
+    font-size: 1.1rem;
+    margin-bottom: 0.5rem;
+  }
+  .step p {
+    color: var(--color-brand-muted);
+    font-size: 0.92rem;
+    line-height: 1.55;
+  }
+  .step__arrow {
+    position: absolute;
+    right: -22px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--color-brand-navy);
+    opacity: 0.3;
+    z-index: 2;
+    background: var(--color-brand-cream);
+    padding: 4px;
+  }
+
+  .process__visual {
+    display: grid;
+    grid-template-columns: 1.2fr 1fr;
+    gap: 2.5rem;
+    align-items: center;
+    background: white;
+    border-radius: 24px;
+    padding: 2rem;
+    border: 1px solid var(--color-brand-border);
+  }
+  .process__photo {
+    aspect-ratio: 4 / 3;
+    border-radius: 18px;
+    overflow: hidden;
+    position: relative;
+    background: linear-gradient(135deg, var(--color-brand-navy), var(--color-brand-orange));
+  }
+  .process__photo img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.6s;
+  }
+  .process__photo:hover img {
+    transform: scale(1.03);
+  }
+  .process__photo.no-photo::after {
+    content: 'Фото процесса обучения';
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-family: var(--font-display);
+    font-weight: 600;
+    opacity: 0.9;
+  }
+  .process__visual-content h3 {
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+  }
+  .process__visual-content p {
+    color: var(--color-brand-muted);
+    font-size: 1rem;
+    margin-bottom: 1rem;
+  }
+  .text-link {
+    color: var(--color-brand-navy);
+    font-weight: 600;
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+  .text-link:hover {
+    color: var(--color-brand-orange);
+  }
+
+  @media (max-width: 1100px) {
+    .process__grid { grid-template-columns: 1fr 1fr; }
+    .step__arrow { display: none; }
+  }
+  @media (max-width: 700px) {
+    .process__grid { grid-template-columns: 1fr; }
+    .process__visual { grid-template-columns: 1fr; padding: 1.25rem; }
+  }
+</style>

@@ -1,0 +1,210 @@
+---
+import { SITE } from '../lib/site';
+---
+
+<section class="branches" id="branches">
+  <div class="branches__inner">
+    <div class="branches__head reveal">
+      <span class="eyebrow">Филиалы</span>
+      <h2>3&nbsp;филиала&nbsp;— выбираете ближе&nbsp;к&nbsp;дому</h2>
+      <p>
+        Пермь и&nbsp;пригород: Свердловский район, Индустриальный район и&nbsp;село Гамово. Одни программы, одни цены&nbsp;— везде.
+      </p>
+    </div>
+
+    <div class="branches__layout">
+      <div class="branches__list" data-stagger>
+        {SITE.branches.map((b, i) => (
+          <article class={`branch-card ${i === 0 ? 'is-primary' : ''}`} data-idx={String(i)}>
+            {b.badge && <span class="branch-card__badge">{b.badge}</span>}
+            <h3>{b.title}</h3>
+            <p class="branch-card__district">{b.district}</p>
+            <p class="branch-card__address">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/>
+                <circle cx="12" cy="10" r="3"/>
+              </svg>
+              {b.address}
+            </p>
+            <div class="branch-card__meta">
+              <span>
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                  <circle cx="12" cy="12" r="10"/>
+                  <polyline points="12 6 12 12 16 14"/>
+                </svg>
+                {b.hours}
+              </span>
+              <a
+                href={`https://yandex.ru/maps/?text=${encodeURIComponent(b.address)}`}
+                target="_blank"
+                rel="noopener"
+                class="branch-card__route"
+              >
+                Построить маршрут
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></svg>
+              </a>
+            </div>
+          </article>
+        ))}
+      </div>
+
+      <div class="branches__map reveal">
+        <div class="map-frame">
+          <iframe
+            title="Филиалы автошколы АС-Луч на карте Перми"
+            src="https://yandex.ru/map-widget/v1/?ll=56.2%2C58.00&z=11&text=%D0%90%D0%B2%D1%82%D0%BE%D1%88%D0%BA%D0%BE%D0%BB%D0%B0%20%D0%9B%D1%83%D1%87%20%D0%9F%D0%B5%D1%80%D0%BC%D1%8C"
+            width="100%"
+            height="100%"
+            loading="lazy"
+            allowfullscreen
+            style="border:0"
+          ></iframe>
+        </div>
+        <p class="branches__map-note">Не&nbsp;отображается карта? <a href="https://yandex.ru/maps/?text=АС-Луч+автошкола+Пермь" target="_blank" rel="noopener">Открыть в&nbsp;Яндекс.Картах →</a></p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .branches {
+    padding: 5rem 1.25rem;
+    background:
+      radial-gradient(ellipse 70% 80% at 0% 100%, rgba(255, 107, 53, 0.05), transparent 60%),
+      var(--color-brand-cream);
+  }
+  .branches__inner {
+    max-width: 1240px;
+    margin: 0 auto;
+  }
+  .branches__head {
+    max-width: 700px;
+    margin-bottom: 3rem;
+  }
+  .branches__head p {
+    font-size: 1.125rem;
+    color: var(--color-brand-muted);
+    margin-top: 1rem;
+  }
+  .branches__layout {
+    display: grid;
+    grid-template-columns: 1fr 1.2fr;
+    gap: 2rem;
+    align-items: start;
+  }
+  .branches__list {
+    display: grid;
+    gap: 1rem;
+  }
+  .branch-card {
+    position: relative;
+    background: white;
+    border-radius: 18px;
+    padding: 1.5rem 1.75rem;
+    border: 1px solid var(--color-brand-border);
+    transition: transform 0.3s, box-shadow 0.3s, border-color 0.2s;
+  }
+  .branch-card.is-primary {
+    border-color: var(--color-brand-navy);
+    background: linear-gradient(145deg, white 0%, white 60%, var(--color-brand-navy-50) 100%);
+  }
+  .branch-card:hover {
+    transform: translateY(-3px);
+    box-shadow: var(--shadow-card);
+  }
+  .branch-card__badge {
+    position: absolute;
+    top: 1.1rem;
+    right: 1.25rem;
+    padding: 0.3rem 0.7rem;
+    background: var(--color-brand-navy);
+    color: white;
+    font-size: 0.7rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    border-radius: 999px;
+  }
+  .branch-card h3 {
+    font-size: 1.2rem;
+    margin-bottom: 0.25rem;
+    padding-right: 6rem;
+  }
+  .branch-card__district {
+    color: var(--color-brand-muted);
+    font-size: 0.85rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.03em;
+    margin-bottom: 0.85rem;
+  }
+  .branch-card__address {
+    display: flex;
+    gap: 0.5rem;
+    align-items: flex-start;
+    color: var(--color-brand-ink);
+    font-size: 0.95rem;
+    margin-bottom: 1rem;
+  }
+  .branch-card__address svg {
+    color: var(--color-brand-orange);
+    flex-shrink: 0;
+    margin-top: 2px;
+  }
+  .branch-card__meta {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1rem;
+    padding-top: 0.85rem;
+    border-top: 1px dashed var(--color-brand-border);
+  }
+  .branch-card__meta > span {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    color: var(--color-brand-muted);
+    font-size: 0.85rem;
+  }
+  .branch-card__route {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.3rem;
+    color: var(--color-brand-navy);
+    font-weight: 600;
+    font-size: 0.85rem;
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+  .branch-card__route:hover {
+    color: var(--color-brand-orange);
+  }
+
+  .branches__map {
+    display: flex;
+    flex-direction: column;
+  }
+  .map-frame {
+    aspect-ratio: 4 / 5;
+    border-radius: 20px;
+    overflow: hidden;
+    background: var(--color-brand-navy-50);
+    border: 1px solid var(--color-brand-border);
+  }
+  .branches__map-note {
+    margin-top: 0.75rem;
+    font-size: 0.82rem;
+    color: var(--color-brand-muted);
+    text-align: center;
+  }
+  .branches__map-note a {
+    color: var(--color-brand-navy);
+    font-weight: 600;
+    text-decoration: none;
+  }
+
+  @media (max-width: 960px) {
+    .branches__layout { grid-template-columns: 1fr; }
+    .map-frame { aspect-ratio: 16 / 10; }
+  }
+</style>

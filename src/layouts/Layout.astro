@@ -1,0 +1,204 @@
+---
+import { SITE } from '../lib/site';
+
+interface Props {
+  title?: string;
+  description?: string;
+  canonical?: string;
+}
+
+const {
+  title = `${SITE.name} — автошкола в Перми с 2002 года | Категории A, B, C`,
+  description = `Автошкола «АС-Луч» в Перми: 3 филиала, 8 учебных авто, 23 года на рынке. Обучение на категории А, В, С от ${SITE.priceFrom.toLocaleString('ru-RU')} ₽. Лицензия, рассрочка, бесплатное вводное занятие.`,
+  canonical = SITE.url,
+} = Astro.props;
+---
+
+<!DOCTYPE html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+    <meta name="theme-color" content="#1e3a8a" />
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonical} />
+    <title>{title}</title>
+
+    <!-- OG -->
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content={SITE.name} />
+    <meta property="og:locale" content="ru_RU" />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Unbounded:wght@500;600;700;800&family=Inter:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- Favicon placeholder -->
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+
+    <!-- Schema.org — DrivingSchool + LocalBusiness -->
+    <script type="application/ld+json" set:html={JSON.stringify({
+      '@context': 'https://schema.org',
+      '@type': ['DrivingSchool', 'LocalBusiness', 'EducationalOrganization'],
+      name: SITE.name,
+      legalName: SITE.legalName,
+      url: SITE.url,
+      foundingDate: String(SITE.foundedYear),
+      description,
+      areaServed: { '@type': 'City', name: 'Пермь' },
+      telephone: SITE.phones.map(p => p.tel),
+      sameAs: [SITE.socials.vk],
+      hasCredential: {
+        '@type': 'EducationalOccupationalCredential',
+        credentialCategory: 'license',
+        name: `Лицензия ${SITE.license.issuedBy}`,
+      },
+      offers: SITE.categories.map(c => ({
+        '@type': 'Offer',
+        itemOffered: { '@type': 'Course', name: c.title },
+        priceCurrency: 'RUB',
+        availability: 'https://schema.org/InStock',
+      })),
+      location: SITE.branches.map(b => ({
+        '@type': 'Place',
+        name: b.title,
+        address: {
+          '@type': 'PostalAddress',
+          streetAddress: b.address,
+          addressLocality: b.district.includes('Пермский') ? 'с. Гамово' : 'Пермь',
+          addressRegion: 'Пермский край',
+          addressCountry: 'RU',
+        },
+      })),
+    })} />
+
+    <style is:global>
+      @import '../styles/global.css';
+    </style>
+  </head>
+  <body>
+    <div class="scroll-progress" id="scrollProgress"></div>
+    <slot />
+
+    <button class="back-to-top" id="backToTop" aria-label="Наверх">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+        <polyline points="18 15 12 9 6 15"></polyline>
+      </svg>
+    </button>
+
+    <script>
+      import Lenis from 'lenis';
+
+      const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+      const lenis = new Lenis({
+        duration: 1.2,
+        easing: (t: number) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+        touchMultiplier: 1.6,
+      });
+      function raf(time: number) {
+        lenis.raf(time);
+        requestAnimationFrame(raf);
+      }
+      if (!prefersReducedMotion) requestAnimationFrame(raf);
+
+      // Reveal animations
+      const revealObserver = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              entry.target.classList.add('visible');
+              revealObserver.unobserve(entry.target);
+            }
+          });
+        },
+        { threshold: 0.08, rootMargin: '0px 0px -6% 0px' }
+      );
+      const revealEls = document.querySelectorAll('.reveal, .reveal-left, .reveal-right, .reveal-scale, [data-stagger]');
+      revealEls.forEach((el) => revealObserver.observe(el));
+
+      // Fail-safe: if something fails (no IO support, bad timing, etc.), reveal everything after 1.5s.
+      setTimeout(() => {
+        revealEls.forEach((el) => el.classList.add('visible'));
+      }, 1500);
+
+      // Counter animations
+      const counterObserver = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            if (!entry.isIntersecting) return;
+            const el = entry.target as HTMLElement;
+            const target = parseInt(el.getAttribute('data-target') || '0', 10);
+            const suffix = el.getAttribute('data-suffix') || '';
+            const duration = 2000;
+            const start = performance.now();
+            function step(now: number) {
+              const progress = Math.min((now - start) / duration, 1);
+              const eased = 1 - Math.pow(1 - progress, 4);
+              el.textContent = Math.round(eased * target).toLocaleString('ru-RU') + suffix;
+              if (progress < 1) requestAnimationFrame(step);
+            }
+            requestAnimationFrame(step);
+            counterObserver.unobserve(el);
+          });
+        },
+        { threshold: 0.5 }
+      );
+      document.querySelectorAll('.counter-value').forEach((el) => counterObserver.observe(el));
+
+      // Scroll progress
+      const progressBar = document.getElementById('scrollProgress');
+      window.addEventListener(
+        'scroll',
+        () => {
+          const max = document.documentElement.scrollHeight - window.innerHeight;
+          const pct = max > 0 ? (window.scrollY / max) * 100 : 0;
+          if (progressBar) progressBar.style.width = pct + '%';
+        },
+        { passive: true }
+      );
+
+      // Back to top
+      const backToTop = document.getElementById('backToTop');
+      window.addEventListener(
+        'scroll',
+        () => {
+          backToTop?.classList.toggle('visible', window.scrollY > 600);
+        },
+        { passive: true }
+      );
+      backToTop?.addEventListener('click', () => lenis.scrollTo(0));
+
+      // FAQ accordion
+      document.querySelectorAll('.faq-question').forEach((btn) => {
+        btn.addEventListener('click', () => {
+          const item = btn.closest('.faq-item');
+          document.querySelectorAll('.faq-item.open').forEach((open) => {
+            if (open !== item) open.classList.remove('open');
+          });
+          item?.classList.toggle('open');
+        });
+      });
+
+      // Smooth anchor scroll
+      document.querySelectorAll('a[href^="#"]').forEach((a) => {
+        a.addEventListener('click', (e) => {
+          const href = (a as HTMLAnchorElement).getAttribute('href')!;
+          if (href === '#') return;
+          const target = document.querySelector(href);
+          if (target) {
+            e.preventDefault();
+            lenis.scrollTo(target as HTMLElement, { offset: -72 });
+          }
+        });
+      });
+    </script>
+  </body>
+</html>

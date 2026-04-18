@@ -1,0 +1,231 @@
+---
+const reviews = [
+  {
+    name: 'Анна К.',
+    cat: 'B',
+    year: '2025',
+    text: 'Сдала с первого раза после автошколы. Автодром давали столько, сколько нужно, в городе ездили по реальным маршрутам ГИБДД.',
+    rating: 5,
+  },
+  {
+    name: 'Дмитрий С.',
+    cat: 'B',
+    year: '2025',
+    text: 'Начинал с нуля, боялся даже руль держать. За 2,5 месяца реально научили. Теория онлайн удобная — учил в транспорте.',
+    rating: 5,
+  },
+  {
+    name: 'Ольга М.',
+    cat: 'B',
+    year: '2024',
+    text: 'Училась рядом с домом в Кондратово (тогда был филиал). Хорошее отношение, честные цены, всё оформили быстро.',
+    rating: 5,
+  },
+  {
+    name: 'Иван П.',
+    cat: 'A',
+    year: '2025',
+    text: 'Права категории А. Подготовка к экзамену плотная, преподаватель всё разжёвывал. Сдал первую часть с одной попытки.',
+    rating: 5,
+  },
+  {
+    name: 'Мария В.',
+    cat: 'B',
+    year: '2024',
+    text: 'Отдельно порадовала рассрочка без банка. Платила по частям, никаких скрытых процентов. Цена та, что в договоре.',
+    rating: 5,
+  },
+  {
+    name: 'Алексей Ш.',
+    cat: 'C',
+    year: '2024',
+    text: 'Брал категорию С для работы. Помогли с документами в ГИБДД, вопросов не возникло ни разу. Рекомендую.',
+    rating: 5,
+  },
+];
+---
+
+<section class="reviews" id="reviews">
+  <div class="reviews__inner">
+    <div class="reviews__head reveal">
+      <div>
+        <span class="eyebrow">Отзывы</span>
+        <h2>Нам доверяют выпускники Перми</h2>
+        <p>Настоящие отзывы&nbsp;— с&nbsp;Яндекс.Карт, 2ГИС и&nbsp;ВК. Полный список можно посмотреть в&nbsp;наших карточках на&nbsp;картах.</p>
+      </div>
+      <div class="reviews__rating reveal-right">
+        <div class="reviews__rating-value">
+          <span class="counter-value" data-target="48" data-suffix="">0</span>
+          <span class="reviews__rating-denom">/ 50</span>
+        </div>
+        <div class="reviews__rating-stars" aria-label="Средний рейтинг 4.8 из 5">
+          {[1,2,3,4,5].map((n) => (
+            <svg width="20" height="20" viewBox="0 0 24 24" fill={n <= 5 ? 'currentColor' : 'none'} stroke="currentColor" stroke-width="2" aria-hidden="true">
+              <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/>
+            </svg>
+          ))}
+        </div>
+        <p class="reviews__rating-label">Средний рейтинг по&nbsp;Яндекс.Картам</p>
+      </div>
+    </div>
+
+    <div class="reviews__grid" data-stagger>
+      {reviews.map((r) => (
+        <article class="review-card">
+          <div class="review-card__head">
+            <div class="review-card__avatar" aria-hidden="true">{r.name[0]}</div>
+            <div>
+              <div class="review-card__name">{r.name}</div>
+              <div class="review-card__meta">Категория {r.cat} · {r.year}</div>
+            </div>
+            <div class="review-card__stars" aria-label={`${r.rating} из 5`}>
+              {Array.from({length: r.rating}).map(() => (
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+              ))}
+            </div>
+          </div>
+          <p class="review-card__text">{r.text}</p>
+        </article>
+      ))}
+    </div>
+
+    <div class="reviews__cta reveal">
+      <a href="https://yandex.ru/maps/?text=АС-Луч+автошкола+Пермь" target="_blank" rel="noopener" class="btn-ghost">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+        Посмотреть все отзывы на Яндекс.Картах
+      </a>
+    </div>
+  </div>
+</section>
+
+<style>
+  .reviews {
+    padding: 5rem 1.25rem;
+  }
+  .reviews__inner {
+    max-width: 1240px;
+    margin: 0 auto;
+  }
+  .reviews__head {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 2rem;
+    align-items: center;
+    margin-bottom: 3rem;
+  }
+  .reviews__head p {
+    font-size: 1.05rem;
+    color: var(--color-brand-muted);
+    margin-top: 1rem;
+    max-width: 54ch;
+  }
+  .reviews__rating {
+    background: linear-gradient(145deg, var(--color-brand-navy) 0%, var(--color-brand-navy-800) 100%);
+    color: white;
+    border-radius: 20px;
+    padding: 1.75rem;
+    text-align: center;
+    min-width: 240px;
+  }
+  .reviews__rating-value {
+    display: flex;
+    align-items: baseline;
+    justify-content: center;
+    gap: 0.4rem;
+    font-family: var(--font-display);
+    font-weight: 800;
+    font-size: 3rem;
+    line-height: 1;
+    letter-spacing: -0.03em;
+  }
+  .reviews__rating-value::after {
+    content: '';
+  }
+  .reviews__rating-denom {
+    font-size: 1.25rem;
+    font-weight: 500;
+    opacity: 0.5;
+  }
+  .reviews__rating-stars {
+    display: flex;
+    justify-content: center;
+    gap: 2px;
+    margin: 0.75rem 0 0.25rem;
+    color: var(--color-brand-orange);
+  }
+  .reviews__rating-label {
+    font-size: 0.85rem;
+    opacity: 0.7;
+    margin: 0;
+  }
+
+  .reviews__grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.25rem;
+  }
+  .review-card {
+    background: white;
+    border-radius: 18px;
+    padding: 1.5rem;
+    border: 1px solid var(--color-brand-border);
+    transition: transform 0.3s, box-shadow 0.3s;
+  }
+  .review-card:hover {
+    transform: translateY(-3px);
+    box-shadow: var(--shadow-card);
+  }
+  .review-card__head {
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    gap: 0.75rem;
+    align-items: center;
+    margin-bottom: 0.85rem;
+  }
+  .review-card__avatar {
+    width: 42px;
+    height: 42px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--color-brand-navy), var(--color-brand-orange));
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: 1.1rem;
+  }
+  .review-card__name {
+    font-weight: 600;
+    font-size: 0.95rem;
+  }
+  .review-card__meta {
+    color: var(--color-brand-muted);
+    font-size: 0.82rem;
+  }
+  .review-card__stars {
+    color: var(--color-brand-orange);
+    display: flex;
+    gap: 1px;
+  }
+  .review-card__text {
+    color: var(--color-brand-ink);
+    font-size: 0.92rem;
+    line-height: 1.55;
+  }
+
+  .reviews__cta {
+    display: flex;
+    justify-content: center;
+    margin-top: 2rem;
+  }
+
+  @media (max-width: 960px) {
+    .reviews__head { grid-template-columns: 1fr; }
+    .reviews__rating { justify-self: start; }
+    .reviews__grid { grid-template-columns: 1fr 1fr; }
+  }
+  @media (max-width: 620px) {
+    .reviews__grid { grid-template-columns: 1fr; }
+  }
+</style>

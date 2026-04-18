@@ -1,0 +1,349 @@
+---
+import { SITE } from '../lib/site';
+---
+
+<section class="contact" id="contact">
+  <div class="contact__inner">
+    <div class="contact__content reveal-left">
+      <span class="eyebrow">Запись</span>
+      <h2>Займите место в&nbsp;группе&nbsp;—<br/>набор закрывается через&nbsp;4&nbsp;дня</h2>
+      <p class="contact__lead">
+        Оставьте заявку&nbsp;— перезвоним в&nbsp;течение 15&nbsp;минут в&nbsp;рабочее время. Подберём ближайший старт и&nbsp;удобный филиал.
+      </p>
+
+      <ul class="contact__trust">
+        <li>
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+          Номер не&nbsp;передаём третьим лицам
+        </li>
+        <li>
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+          Звонок&nbsp;— только один, без&nbsp;спама
+        </li>
+        <li>
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+          Бесплатное вводное занятие&nbsp;— без&nbsp;обязательств
+        </li>
+      </ul>
+
+      <div class="contact__side">
+        <a href={`tel:${SITE.phones[0].tel}`} class="contact__phone-big">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+          <div>
+            <div class="contact__phone-label">или позвоните напрямую</div>
+            <div class="contact__phone-num">{SITE.phones[0].label}</div>
+          </div>
+        </a>
+      </div>
+    </div>
+
+    <form class="contact__form reveal-right" id="leadForm" novalidate>
+      <div class="contact__form-head">
+        <h3>Записаться бесплатно</h3>
+        <p>Заполните 3&nbsp;поля — остальное за&nbsp;нас.</p>
+      </div>
+
+      <label class="field">
+        <span class="field__label">Как к&nbsp;вам обращаться</span>
+        <input type="text" name="name" required placeholder="Анна" autocomplete="given-name" />
+      </label>
+
+      <label class="field">
+        <span class="field__label">Телефон</span>
+        <input type="tel" name="phone" required placeholder="+7 (___) ___-__-__" autocomplete="tel" inputmode="tel" />
+      </label>
+
+      <label class="field">
+        <span class="field__label">Категория</span>
+        <select name="category" required>
+          <option value="B" selected>B — легковой автомобиль</option>
+          <option value="A">A — мотоцикл</option>
+          <option value="C">C — грузовой автомобиль</option>
+          <option value="?">Пока не определился — нужна консультация</option>
+        </select>
+      </label>
+
+      <button type="submit" class="btn-primary contact__submit">
+        <span class="contact__submit-text">Забронировать место</span>
+        <svg class="contact__submit-spin" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12a9 9 0 1 1-6.219-8.56"/></svg>
+      </button>
+
+      <p class="contact__form-fine">
+        Нажимая «Забронировать», вы&nbsp;соглашаетесь с&nbsp;<a href="/privacy">политикой обработки персональных данных</a>.
+      </p>
+
+      <div class="contact__form-success" id="leadSuccess" aria-live="polite">
+        <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="9 12 12 15 17 10"/></svg>
+        <h4>Спасибо!</h4>
+        <p>Перезвоним в&nbsp;течение 15&nbsp;минут на&nbsp;указанный номер.</p>
+      </div>
+
+      <div class="contact__form-error" id="leadError" aria-live="polite">
+        <p>Не&nbsp;удалось отправить заявку. Попробуйте ещё раз или&nbsp;позвоните нам напрямую&nbsp;— <a href={`tel:${SITE.phones[0].tel}`}>{SITE.phones[0].label}</a></p>
+      </div>
+    </form>
+  </div>
+</section>
+
+<style>
+  .contact {
+    padding: 6rem 1.25rem;
+    background:
+      radial-gradient(ellipse 60% 80% at 100% 100%, rgba(30, 58, 138, 0.08), transparent 60%),
+      radial-gradient(ellipse 60% 80% at 0% 0%, rgba(255, 107, 53, 0.08), transparent 60%),
+      linear-gradient(180deg, var(--color-brand-cream) 0%, white 100%);
+  }
+  .contact__inner {
+    max-width: 1240px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1fr 0.9fr;
+    gap: 4rem;
+    align-items: start;
+  }
+  .contact__content h2 {
+    margin-bottom: 1.25rem;
+  }
+  .contact__lead {
+    font-size: 1.125rem;
+    color: var(--color-brand-muted);
+    max-width: 48ch;
+    margin-bottom: 1.75rem;
+  }
+  .contact__trust {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 2rem;
+    display: grid;
+    gap: 0.6rem;
+  }
+  .contact__trust li {
+    display: flex;
+    gap: 0.6rem;
+    align-items: center;
+    color: var(--color-brand-ink);
+    font-size: 0.95rem;
+  }
+  .contact__trust svg {
+    color: var(--color-brand-success);
+    flex-shrink: 0;
+  }
+
+  .contact__phone-big {
+    display: inline-flex;
+    gap: 1rem;
+    align-items: center;
+    padding: 1rem 1.5rem 1rem 1.25rem;
+    background: white;
+    border: 1px solid var(--color-brand-border);
+    border-radius: 16px;
+    text-decoration: none;
+    color: var(--color-brand-ink);
+    transition: transform 0.2s, box-shadow 0.2s, border-color 0.2s;
+  }
+  .contact__phone-big:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-card);
+    border-color: var(--color-brand-navy);
+  }
+  .contact__phone-big svg {
+    color: var(--color-brand-orange);
+    padding: 0.6rem;
+    background: var(--color-brand-orange-50);
+    border-radius: 12px;
+    width: 44px;
+    height: 44px;
+  }
+  .contact__phone-label {
+    font-size: 0.8rem;
+    color: var(--color-brand-muted);
+  }
+  .contact__phone-num {
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: 1.35rem;
+    color: var(--color-brand-ink);
+    margin-top: 2px;
+  }
+
+  .contact__form {
+    background: white;
+    border-radius: 24px;
+    padding: 2.25rem;
+    border: 1px solid var(--color-brand-border);
+    box-shadow: var(--shadow-card);
+    position: relative;
+  }
+  .contact__form-head {
+    margin-bottom: 1.5rem;
+  }
+  .contact__form-head h3 {
+    font-size: 1.5rem;
+    margin-bottom: 0.3rem;
+  }
+  .contact__form-head p {
+    color: var(--color-brand-muted);
+    font-size: 0.95rem;
+  }
+  .field {
+    display: block;
+    margin-bottom: 1rem;
+  }
+  .field__label {
+    display: block;
+    font-size: 0.85rem;
+    color: var(--color-brand-muted);
+    font-weight: 600;
+    margin-bottom: 0.4rem;
+  }
+  .field input,
+  .field select {
+    width: 100%;
+    padding: 0.85rem 1rem;
+    background: var(--color-brand-cream);
+    border: 1.5px solid transparent;
+    border-radius: 12px;
+    font-size: 1rem;
+    color: var(--color-brand-ink);
+    font-family: inherit;
+    transition: border-color 0.2s, background 0.2s;
+  }
+  .field input:focus,
+  .field select:focus {
+    outline: none;
+    border-color: var(--color-brand-navy);
+    background: white;
+  }
+  .field input::placeholder {
+    color: var(--color-brand-muted);
+  }
+  .contact__submit {
+    width: 100%;
+    margin-top: 0.75rem;
+    padding: 1rem 1.5rem !important;
+    font-size: 1.05rem !important;
+  }
+  .contact__submit-spin {
+    display: none;
+    animation: spin 0.8s linear infinite;
+  }
+  @keyframes spin { to { transform: rotate(360deg); } }
+  .contact__form.loading .contact__submit-text { display: none; }
+  .contact__form.loading .contact__submit-spin { display: inline-block; }
+  .contact__form.loading .contact__submit { pointer-events: none; opacity: 0.85; }
+
+  .contact__form-fine {
+    margin-top: 1rem;
+    font-size: 0.78rem;
+    color: var(--color-brand-muted);
+    line-height: 1.4;
+    text-align: center;
+  }
+  .contact__form-fine a {
+    color: var(--color-brand-navy);
+  }
+
+  .contact__form-success,
+  .contact__form-error {
+    position: absolute;
+    inset: 0;
+    background: white;
+    border-radius: 24px;
+    padding: 2rem;
+    display: none;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+  }
+  .contact__form.success .contact__form-success {
+    display: flex;
+  }
+  .contact__form.error .contact__form-error {
+    display: flex;
+  }
+  .contact__form-success svg {
+    color: var(--color-brand-success);
+    margin-bottom: 1rem;
+  }
+  .contact__form-success h4 {
+    font-size: 1.75rem;
+    margin-bottom: 0.5rem;
+  }
+  .contact__form-success p {
+    color: var(--color-brand-muted);
+    font-size: 1rem;
+    max-width: 34ch;
+  }
+  .contact__form-error p {
+    color: var(--color-brand-ink);
+    font-size: 1rem;
+  }
+  .contact__form-error a {
+    color: var(--color-brand-navy);
+    font-weight: 700;
+  }
+
+  @media (max-width: 960px) {
+    .contact__inner { grid-template-columns: 1fr; gap: 2.5rem; }
+  }
+  @media (max-width: 640px) {
+    .contact { padding: 3.5rem 1rem; }
+    .contact__form { padding: 1.5rem; }
+  }
+</style>
+
+<script>
+  const form = document.getElementById('leadForm') as HTMLFormElement | null;
+  const phone = form?.querySelector<HTMLInputElement>('input[name="phone"]');
+
+  // Mask phone +7 (XXX) XXX-XX-XX
+  phone?.addEventListener('input', (e) => {
+    const target = e.target as HTMLInputElement;
+    let digits = target.value.replace(/\D/g, '');
+    if (digits.startsWith('8')) digits = '7' + digits.slice(1);
+    if (!digits.startsWith('7') && digits.length) digits = '7' + digits;
+    digits = digits.slice(0, 11);
+    let formatted = '';
+    if (digits.length > 0) formatted = '+7';
+    if (digits.length > 1) formatted += ' (' + digits.slice(1, 4);
+    if (digits.length >= 4) formatted += ') ';
+    if (digits.length >= 4) formatted += digits.slice(4, 7);
+    if (digits.length >= 7) formatted += '-' + digits.slice(7, 9);
+    if (digits.length >= 9) formatted += '-' + digits.slice(9, 11);
+    target.value = formatted;
+  });
+
+  form?.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    if (!form) return;
+    form.classList.remove('error', 'success');
+    form.classList.add('loading');
+
+    const data = new FormData(form);
+    const payload = {
+      name: String(data.get('name') || '').trim(),
+      phone: String(data.get('phone') || '').trim(),
+      category: String(data.get('category') || 'B'),
+      source: window.location.href,
+      referrer: document.referrer || 'direct',
+      userAgent: navigator.userAgent,
+    };
+
+    try {
+      const res = await fetch('/api/lead', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload),
+      });
+      if (!res.ok) throw new Error('Network error');
+      form.classList.remove('loading');
+      form.classList.add('success');
+      // @ts-ignore
+      if (typeof window.ym === 'function') window.ym(0, 'reachGoal', 'lead_submit', { category: payload.category });
+    } catch (err) {
+      form.classList.remove('loading');
+      form.classList.add('error');
+    }
+  });
+</script>

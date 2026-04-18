@@ -1,0 +1,201 @@
+---
+const fleet = [
+  { id: 1, name: 'Lada Granta', year: '2019', trans: 'МКПП', cat: 'B', photo: '/images/fleet/car-01.jpg' },
+  { id: 2, name: 'Lada Granta', year: '2020', trans: 'МКПП', cat: 'B', photo: '/images/fleet/car-02.jpg' },
+  { id: 3, name: 'Lada Vesta', year: '2021', trans: 'МКПП', cat: 'B', photo: null },
+  { id: 4, name: 'Hyundai Solaris', year: '2020', trans: 'АКПП', cat: 'B', photo: null },
+  { id: 5, name: 'Kia Rio', year: '2019', trans: 'МКПП', cat: 'B', photo: null },
+  { id: 6, name: 'Renault Logan', year: '2018', trans: 'МКПП', cat: 'B', photo: null },
+  { id: 7, name: 'Lada Granta', year: '2022', trans: 'АКПП', cat: 'B', photo: null },
+  { id: 8, name: 'Lada Kalina', year: '2017', trans: 'МКПП', cat: 'B', photo: null },
+];
+---
+
+<section class="fleet" id="fleet">
+  <div class="fleet__inner">
+    <div class="fleet__head reveal">
+      <span class="eyebrow">Автопарк</span>
+      <h2>8&nbsp;учебных автомобилей — не&nbsp;ждите своей очереди</h2>
+      <p>
+        Все машины оборудованы дублирующими педалями, проходят техосмотр каждые&nbsp;3&nbsp;месяца. МКПП и&nbsp;АКПП — выбираете при&nbsp;записи.
+      </p>
+    </div>
+
+    <div class="fleet__grid" data-stagger>
+      {fleet.map((c) => (
+        <article class="car-card">
+          <div class="car-card__photo">
+            <div class="duotone">
+              {c.photo ? (
+                <img src={c.photo} alt={`${c.name} ${c.year}`} loading="lazy" onerror="this.parentElement.parentElement.classList.add('no-photo')" />
+              ) : (
+                <div class="car-card__placeholder">
+                  <svg width="60" height="40" viewBox="0 0 80 50" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                    <path d="M10 35h60M10 35l4-15h52l4 15M10 35v5h8v-5M62 35v5h8v-5M18 24h44"/>
+                  </svg>
+                  <span>Фото скоро</span>
+                </div>
+              )}
+            </div>
+            <span class="car-card__u" aria-hidden="true">У</span>
+          </div>
+          <div class="car-card__body">
+            <h3>{c.name}</h3>
+            <div class="car-card__meta">
+              <span>{c.year}</span>
+              <span class="dot-sep">•</span>
+              <span>{c.trans}</span>
+              <span class="dot-sep">•</span>
+              <span>Кат. {c.cat}</span>
+            </div>
+          </div>
+        </article>
+      ))}
+    </div>
+
+    <div class="fleet__note reveal">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <circle cx="12" cy="12" r="10"/>
+        <line x1="12" y1="8" x2="12" y2="12"/>
+        <line x1="12" y1="16" x2="12.01" y2="16"/>
+      </svg>
+      <p>
+        Список автопарка может отличаться в&nbsp;зависимости от&nbsp;филиала и&nbsp;даты набора. Уточняйте по&nbsp;телефону <a href="tel:+79128841943">8-912 884-19-43</a>.
+      </p>
+    </div>
+  </div>
+</section>
+
+<style>
+  .fleet {
+    padding: 5rem 1.25rem;
+    background:
+      linear-gradient(180deg, transparent 0%, rgba(30, 58, 138, 0.03) 50%, transparent 100%);
+  }
+  .fleet__inner {
+    max-width: 1240px;
+    margin: 0 auto;
+  }
+  .fleet__head {
+    max-width: 700px;
+    margin-bottom: 3rem;
+  }
+  .fleet__head p {
+    font-size: 1.125rem;
+    color: var(--color-brand-muted);
+    margin-top: 1rem;
+  }
+
+  .fleet__grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1.25rem;
+  }
+  .car-card {
+    background: white;
+    border-radius: 18px;
+    overflow: hidden;
+    border: 1px solid var(--color-brand-border);
+    transition: transform 0.3s, box-shadow 0.3s;
+  }
+  .car-card:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-card);
+  }
+  .car-card__photo {
+    aspect-ratio: 4 / 3;
+    position: relative;
+    background: linear-gradient(135deg, var(--color-brand-navy), var(--color-brand-orange));
+    overflow: hidden;
+  }
+  .car-card__photo .duotone {
+    width: 100%;
+    height: 100%;
+  }
+  .car-card__u {
+    position: absolute;
+    top: 0.75rem;
+    right: 0.75rem;
+    width: 32px;
+    height: 32px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-family: var(--font-display);
+    font-weight: 800;
+    font-size: 1.1rem;
+    color: var(--color-brand-orange);
+    background: white;
+    border: 2px solid var(--color-brand-orange);
+    border-radius: 50%;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.15);
+  }
+  .car-card__placeholder {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    opacity: 0.9;
+    mix-blend-mode: normal;
+    background: linear-gradient(135deg, var(--color-brand-navy), var(--color-brand-orange));
+    gap: 0.5rem;
+    font-family: var(--font-display);
+    font-weight: 600;
+    font-size: 0.85rem;
+  }
+  .car-card__body {
+    padding: 1rem 1.1rem 1.25rem;
+  }
+  .car-card h3 {
+    font-size: 1.05rem;
+    margin-bottom: 0.25rem;
+  }
+  .car-card__meta {
+    display: flex;
+    align-items: center;
+    gap: 0.45rem;
+    color: var(--color-brand-muted);
+    font-size: 0.85rem;
+  }
+  .dot-sep {
+    opacity: 0.4;
+  }
+
+  .fleet__note {
+    display: flex;
+    gap: 0.75rem;
+    align-items: flex-start;
+    background: var(--color-brand-navy-50);
+    padding: 1rem 1.25rem;
+    border-radius: 14px;
+    margin-top: 2rem;
+    color: var(--color-brand-navy);
+  }
+  .fleet__note svg {
+    flex-shrink: 0;
+    margin-top: 2px;
+  }
+  .fleet__note p {
+    font-size: 0.92rem;
+    line-height: 1.5;
+  }
+  .fleet__note a {
+    color: var(--color-brand-navy);
+    font-weight: 700;
+    text-decoration: none;
+    border-bottom: 1px solid currentColor;
+  }
+
+  @media (max-width: 1000px) {
+    .fleet__grid { grid-template-columns: repeat(3, 1fr); }
+  }
+  @media (max-width: 720px) {
+    .fleet__grid { grid-template-columns: 1fr 1fr; }
+  }
+  @media (max-width: 420px) {
+    .fleet__grid { grid-template-columns: 1fr; }
+  }
+</style>

@@ -1,0 +1,391 @@
+---
+import { SITE } from '../lib/site';
+---
+
+<section class="hero">
+  <div class="hero__bg" aria-hidden="true">
+    <div class="hero__photo">
+      <!-- Placeholder: /images/hero/hero-01.jpg (Lada Granta на фоне Перми) -->
+      <img
+        src="/images/hero/hero-01.jpg"
+        alt=""
+        loading="eager"
+        fetchpriority="high"
+        onerror="this.style.display='none'"
+      />
+    </div>
+    <div class="hero__gradient"></div>
+    <div class="hero__grid"></div>
+  </div>
+
+  <div class="hero__inner">
+    <div class="hero__content reveal">
+      <span class="hero__eyebrow">
+        <span class="dot"></span>
+        Новый набор группы «B» открыт
+      </span>
+
+      <h1 class="hero__title">
+        Права&nbsp;в&nbsp;Перми<br />
+        <span class="hero__title-accent">за 2,5 месяца</span>
+      </h1>
+
+      <p class="hero__lead">
+        Автошкола с&nbsp;2002 года. 3&nbsp;филиала, 8&nbsp;учебных автомобилей, лицензия Министерства образования Пермского края. Цена от&nbsp;<strong>{SITE.priceFrom.toLocaleString('ru-RU')}&nbsp;₽</strong>.
+      </p>
+
+      <div class="hero__cta">
+        <a href="#contact" class="btn-primary">
+          Забронировать место
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+        </a>
+        <a href="#pricing" class="btn-ghost">Посмотреть цену</a>
+      </div>
+
+      <ul class="hero__trust" aria-label="Почему нам доверяют">
+        <li>
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+          <span>Лицензия<br/><strong>действующая</strong></span>
+        </li>
+        <li>
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+          <span>23&nbsp;года<br/><strong>на рынке Перми</strong></span>
+        </li>
+        <li>
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 9V5a3 3 0 0 0-3-3l-4 9v11h11.28a2 2 0 0 0 2-1.7l1.38-9a2 2 0 0 0-2-2.3H14z"/><line x1="7" y1="22" x2="7" y2="11"/></svg>
+          <span>Программы<br/><strong>№505 соответствуют</strong></span>
+        </li>
+        <li>
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+          <span>Ответ<br/><strong>за 15 минут</strong></span>
+        </li>
+      </ul>
+    </div>
+
+    <aside class="hero__card reveal-right" aria-label="Ближайший набор">
+      <div class="hero__card-head">
+        <span class="tag-live">
+          <span class="tag-live__dot"></span>
+          Идёт набор
+        </span>
+        <span class="hero__card-cat">Категория B</span>
+      </div>
+
+      <div class="hero__card-progress" aria-label="Заполненность группы">
+        <div class="hero__card-progress-bar" style="--pct: 78%"></div>
+        <div class="hero__card-progress-labels">
+          <span>14 из 18 мест занято</span>
+          <span class="muted">78%</span>
+        </div>
+      </div>
+
+      <div class="hero__card-grid">
+        <div>
+          <div class="hero__card-k">Старт</div>
+          <div class="hero__card-v">22 апреля</div>
+        </div>
+        <div>
+          <div class="hero__card-k">Срок</div>
+          <div class="hero__card-v">2,5 месяца</div>
+        </div>
+        <div>
+          <div class="hero__card-k">Цена</div>
+          <div class="hero__card-v">{SITE.priceFrom.toLocaleString('ru-RU')} ₽</div>
+        </div>
+        <div>
+          <div class="hero__card-k">Рассрочка</div>
+          <div class="hero__card-v">0% на 3 мес</div>
+        </div>
+      </div>
+
+      <a href="#contact" class="hero__card-cta">Занять место</a>
+
+      <p class="hero__card-note">
+        Бесплатное вводное занятие — знакомство с&nbsp;машиной и&nbsp;инструктором, без оплаты и&nbsp;обязательств.
+      </p>
+    </aside>
+  </div>
+</section>
+
+<style>
+  .hero {
+    position: relative;
+    padding: 3.5rem 1.25rem 6rem;
+    overflow: hidden;
+  }
+  .hero__bg {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    pointer-events: none;
+  }
+  .hero__photo {
+    position: absolute;
+    inset: 0;
+    overflow: hidden;
+  }
+  .hero__photo img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center 55%;
+    opacity: 0.45;
+    filter: saturate(0.85) contrast(1.05);
+  }
+  .hero__gradient {
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(ellipse 80% 55% at 15% 30%, rgba(250, 250, 247, 0.9), rgba(250, 250, 247, 0.4) 60%, transparent 100%),
+      linear-gradient(180deg, rgba(250, 250, 247, 0.75) 0%, rgba(250, 250, 247, 0.92) 100%),
+      linear-gradient(135deg, rgba(30, 58, 138, 0.16) 0%, rgba(255, 107, 53, 0.1) 100%);
+  }
+  .hero__grid {
+    position: absolute;
+    inset: 0;
+    background-image:
+      linear-gradient(var(--color-brand-border) 1px, transparent 1px),
+      linear-gradient(90deg, var(--color-brand-border) 1px, transparent 1px);
+    background-size: 64px 64px;
+    mask-image: radial-gradient(ellipse at 50% 50%, black, transparent 75%);
+    opacity: 0.35;
+  }
+  .hero__inner {
+    position: relative;
+    z-index: 1;
+    max-width: 1240px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1.3fr 0.9fr;
+    gap: 3rem;
+    align-items: center;
+  }
+
+  .hero__eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.4rem 0.85rem;
+    border-radius: 999px;
+    background: white;
+    border: 1px solid var(--color-brand-border);
+    color: var(--color-brand-navy);
+    font-weight: 600;
+    font-size: 0.85rem;
+    box-shadow: var(--shadow-soft);
+  }
+  .hero__eyebrow .dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--color-brand-success);
+    box-shadow: 0 0 0 4px rgba(16, 185, 129, 0.18);
+    animation: pulse 2s infinite;
+  }
+  @keyframes pulse {
+    0%, 100% { box-shadow: 0 0 0 4px rgba(16, 185, 129, 0.18); }
+    50% { box-shadow: 0 0 0 8px rgba(16, 185, 129, 0.05); }
+  }
+
+  .hero__title {
+    margin: 1.25rem 0 1.1rem;
+    letter-spacing: -0.03em;
+  }
+  .hero__title-accent {
+    background: linear-gradient(90deg, var(--color-brand-navy) 0%, var(--color-brand-orange) 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+
+  .hero__lead {
+    font-size: 1.125rem;
+    color: var(--color-brand-muted);
+    max-width: 52ch;
+    margin-bottom: 1.75rem;
+  }
+  .hero__lead strong {
+    color: var(--color-brand-ink);
+    font-weight: 700;
+  }
+
+  .hero__cta {
+    display: flex;
+    gap: 0.85rem;
+    flex-wrap: wrap;
+    margin-bottom: 2rem;
+  }
+
+  .hero__trust {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 1rem;
+    padding: 0;
+    margin: 0;
+    list-style: none;
+  }
+  .hero__trust li {
+    display: flex;
+    gap: 0.65rem;
+    align-items: flex-start;
+    padding: 0.75rem;
+    background: white;
+    border-radius: 14px;
+    border: 1px solid var(--color-brand-border);
+    font-size: 0.82rem;
+    color: var(--color-brand-muted);
+    line-height: 1.25;
+  }
+  .hero__trust svg {
+    color: var(--color-brand-navy);
+    flex-shrink: 0;
+    margin-top: 1px;
+  }
+  .hero__trust strong {
+    display: block;
+    color: var(--color-brand-ink);
+    font-weight: 700;
+    font-size: 0.88rem;
+  }
+
+  .hero__card {
+    background: white;
+    border-radius: 24px;
+    padding: 1.75rem;
+    box-shadow: var(--shadow-card);
+    border: 1px solid var(--color-brand-border);
+    position: relative;
+  }
+  .hero__card::before {
+    content: '';
+    position: absolute;
+    inset: -1px;
+    border-radius: 24px;
+    background: linear-gradient(135deg, rgba(30, 58, 138, 0.12), rgba(255, 107, 53, 0.12));
+    z-index: -1;
+  }
+  .hero__card-head {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1.25rem;
+  }
+  .tag-live {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    padding: 0.3rem 0.65rem;
+    border-radius: 999px;
+    background: var(--color-brand-orange-50);
+    color: var(--color-brand-orange-600);
+    font-size: 0.78rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+  }
+  .tag-live__dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--color-brand-orange);
+    animation: pulse-orange 1.4s infinite;
+  }
+  @keyframes pulse-orange {
+    0%, 100% { box-shadow: 0 0 0 0 rgba(255, 107, 53, 0.4); }
+    50% { box-shadow: 0 0 0 6px rgba(255, 107, 53, 0); }
+  }
+  .hero__card-cat {
+    font-family: var(--font-display);
+    font-weight: 700;
+    color: var(--color-brand-navy);
+  }
+
+  .hero__card-progress {
+    margin-bottom: 1.5rem;
+  }
+  .hero__card-progress-bar {
+    height: 10px;
+    background: var(--color-brand-navy-50);
+    border-radius: 999px;
+    overflow: hidden;
+    position: relative;
+    margin-bottom: 0.5rem;
+  }
+  .hero__card-progress-bar::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    width: var(--pct);
+    background: linear-gradient(90deg, var(--color-brand-navy), var(--color-brand-orange));
+    border-radius: 999px;
+  }
+  .hero__card-progress-labels {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.85rem;
+    color: var(--color-brand-ink);
+    font-weight: 500;
+  }
+  .hero__card-progress-labels .muted {
+    color: var(--color-brand-muted);
+  }
+
+  .hero__card-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.85rem 1.25rem;
+    padding: 1.25rem 0;
+    border-top: 1px solid var(--color-brand-border);
+    border-bottom: 1px solid var(--color-brand-border);
+    margin-bottom: 1.5rem;
+  }
+  .hero__card-k {
+    font-size: 0.78rem;
+    color: var(--color-brand-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    font-weight: 600;
+  }
+  .hero__card-v {
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: 1.15rem;
+    color: var(--color-brand-ink);
+    margin-top: 2px;
+  }
+
+  .hero__card-cta {
+    display: block;
+    text-align: center;
+    padding: 0.95rem 1.5rem;
+    border-radius: 14px;
+    background: var(--color-brand-navy);
+    color: white;
+    font-weight: 600;
+    font-size: 1rem;
+    text-decoration: none;
+    transition: background 0.2s, transform 0.2s;
+  }
+  .hero__card-cta:hover {
+    background: var(--color-brand-navy-800);
+    transform: translateY(-2px);
+  }
+
+  .hero__card-note {
+    font-size: 0.85rem;
+    color: var(--color-brand-muted);
+    margin-top: 1rem;
+    line-height: 1.45;
+  }
+
+  @media (max-width: 1024px) {
+    .hero__inner { grid-template-columns: 1fr; gap: 2.25rem; }
+    .hero__trust { grid-template-columns: 1fr 1fr; }
+  }
+  @media (max-width: 640px) {
+    .hero { padding: 2.25rem 1rem 3.5rem; }
+    .hero__card { padding: 1.25rem; }
+    .hero__cta { width: 100%; }
+    .hero__cta .btn-primary, .hero__cta .btn-ghost { flex: 1; }
+  }
+</style>

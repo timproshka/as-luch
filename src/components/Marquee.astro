@@ -1,0 +1,53 @@
+---
+const items = [
+  'с 2002 года',
+  'лицензия Минобр ПК',
+  '3 филиала в Перми',
+  '8 учебных авто',
+  'рассрочка 0%',
+  'бесплатное вводное занятие',
+  'программы №505',
+  'ответ за 15 минут',
+];
+const loop = [...items, ...items];
+---
+
+<section class="marquee-wrap" aria-hidden="true">
+  <div class="marquee">
+    <div class="marquee-track">
+      {loop.map((t, i) => (
+        <span class="marquee__item" key={i}>
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <polyline points="20 6 9 17 4 12"></polyline>
+          </svg>
+          {t}
+        </span>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style>
+  .marquee-wrap {
+    background: var(--color-brand-navy);
+    padding: 1rem 0;
+    color: white;
+    border-top: 1px solid rgba(255, 255, 255, 0.08);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  }
+  .marquee__item {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.45rem;
+    padding: 0 1.75rem;
+    font-family: var(--font-display);
+    font-weight: 600;
+    font-size: 0.95rem;
+    letter-spacing: 0.01em;
+    white-space: nowrap;
+    color: rgba(255, 255, 255, 0.92);
+  }
+  .marquee__item svg {
+    color: var(--color-brand-orange);
+  }
+</style>

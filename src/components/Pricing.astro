@@ -1,0 +1,335 @@
+---
+import { SITE } from '../lib/site';
+
+const includes = [
+  '134 часа теории (очно + онлайн-тренажёр)',
+  'Минимум 56 часов вождения: автодром + город',
+  'Учебные материалы и ПДД в подарок',
+  'Медосмотр — помогаем организовать',
+  'Индивидуальные занятия на компьютере',
+  'Внутренний экзамен в автошколе',
+  'Сопровождение до экзамена в ГИБДД',
+  'Пересдача внутреннего экзамена — бесплатно',
+];
+
+const installments = [
+  { months: 3, label: '3 платежа' },
+  { months: 6, label: '6 платежей' },
+  { months: 9, label: '9 платежей' },
+];
+---
+
+<section class="pricing" id="pricing">
+  <div class="pricing__inner">
+    <div class="pricing__head reveal">
+      <span class="eyebrow">Прозрачная цена</span>
+      <h2>Одна цена. Без&nbsp;доплат&nbsp;и&nbsp;сюрпризов</h2>
+      <p>Фиксируем стоимость в&nbsp;договоре. Никаких «допов»&nbsp;за&nbsp;бензин, площадку или&nbsp;документы.</p>
+    </div>
+
+    <div class="pricing__grid">
+      <div class="price-card reveal-left">
+        <div class="price-card__top">
+          <div class="price-card__eyebrow">Категория B — легковой автомобиль</div>
+          <div class="price-card__amount">
+            <span class="price-card__value">{SITE.priceFrom.toLocaleString('ru-RU')}</span>
+            <span class="price-card__currency">₽</span>
+          </div>
+          <div class="price-card__note">полный курс, 2,5&nbsp;месяца</div>
+        </div>
+
+        <ul class="price-card__list">
+          {includes.map((item) => (
+            <li>
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <polyline points="20 6 9 17 4 12"></polyline>
+              </svg>
+              <span>{item}</span>
+            </li>
+          ))}
+        </ul>
+
+        <div class="price-card__ctas">
+          <a href="#contact" class="btn-primary">Забронировать место</a>
+          <a href={SITE.whatsapp} target="_blank" rel="noopener" class="btn-ghost">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg>
+            Написать в WhatsApp
+          </a>
+        </div>
+      </div>
+
+      <div class="price-side reveal-right">
+        <div class="price-side__card installment">
+          <h3>Рассрочка 0%</h3>
+          <p class="price-side__lead">Без банка, без переплат. Удобный платёж по&nbsp;выбору:</p>
+
+          <div class="installment__tabs" role="tablist">
+            {installments.map((opt, i) => (
+              <button
+                type="button"
+                class={`installment__tab ${i === 1 ? 'active' : ''}`}
+                data-months={opt.months}
+                role="tab"
+                aria-selected={i === 1 ? 'true' : 'false'}
+              >
+                {opt.label}
+              </button>
+            ))}
+          </div>
+
+          <div class="installment__result">
+            <span class="installment__pmt" id="installmentPayment">
+              {Math.round(SITE.priceFrom / 6).toLocaleString('ru-RU')}
+            </span>
+            <span class="installment__cur">₽/мес</span>
+          </div>
+          <p class="installment__total">
+            Итого: <strong>{SITE.priceFrom.toLocaleString('ru-RU')} ₽</strong> — без переплат
+          </p>
+        </div>
+
+        <div class="price-side__card promo">
+          <div class="promo__icon">🎁</div>
+          <h4>Скидка 10% студентам</h4>
+          <p>По&nbsp;студенческому или&nbsp;зачётке любого ВУЗа/колледжа&nbsp;Перми.</p>
+        </div>
+
+        <div class="price-side__card promo">
+          <div class="promo__icon">🚗</div>
+          <h4>Бесплатное вводное занятие</h4>
+          <p>Знакомство с&nbsp;машиной и&nbsp;инструктором — без&nbsp;оплаты и&nbsp;обязательств.</p>
+        </div>
+      </div>
+    </div>
+
+    <p class="pricing__fine">
+      * Цены на&nbsp;категории A и&nbsp;C&nbsp;— уточняйте по&nbsp;телефону. Стоимость медицинской справки и&nbsp;пошлины&nbsp;ГИБДД оплачиваются отдельно.
+    </p>
+  </div>
+</section>
+
+<style>
+  .pricing {
+    padding: 5rem 1.25rem;
+  }
+  .pricing__inner {
+    max-width: 1240px;
+    margin: 0 auto;
+  }
+  .pricing__head {
+    max-width: 680px;
+    margin-bottom: 3rem;
+  }
+  .pricing__head p {
+    font-size: 1.125rem;
+    color: var(--color-brand-muted);
+    margin-top: 1rem;
+  }
+
+  .pricing__grid {
+    display: grid;
+    grid-template-columns: 1.35fr 1fr;
+    gap: 2rem;
+    align-items: start;
+  }
+
+  .price-card {
+    background: linear-gradient(145deg, white 0%, white 55%, var(--color-brand-navy-50) 100%);
+    border: 1px solid var(--color-brand-border);
+    border-radius: 24px;
+    padding: 2.25rem;
+    position: relative;
+    overflow: hidden;
+  }
+  .price-card::before {
+    content: '';
+    position: absolute;
+    top: -40%;
+    right: -20%;
+    width: 70%;
+    height: 140%;
+    background: radial-gradient(circle, rgba(255, 107, 53, 0.12), transparent 70%);
+    pointer-events: none;
+  }
+  .price-card__eyebrow {
+    color: var(--color-brand-navy);
+    font-weight: 700;
+    font-size: 0.9rem;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    margin-bottom: 1rem;
+  }
+  .price-card__amount {
+    display: flex;
+    align-items: baseline;
+    gap: 0.35rem;
+    margin-bottom: 0.5rem;
+  }
+  .price-card__value {
+    font-family: var(--font-display);
+    font-weight: 800;
+    font-size: clamp(3rem, 6vw, 4.5rem);
+    line-height: 1;
+    color: var(--color-brand-ink);
+    letter-spacing: -0.04em;
+  }
+  .price-card__currency {
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: 2rem;
+    color: var(--color-brand-navy);
+  }
+  .price-card__note {
+    color: var(--color-brand-muted);
+    font-size: 1rem;
+    margin-bottom: 2rem;
+  }
+  .price-card__list {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 2rem;
+    display: grid;
+    gap: 0.7rem;
+  }
+  .price-card__list li {
+    display: flex;
+    gap: 0.7rem;
+    align-items: flex-start;
+    color: var(--color-brand-ink);
+    font-size: 0.98rem;
+  }
+  .price-card__list svg {
+    color: var(--color-brand-success);
+    flex-shrink: 0;
+    margin-top: 3px;
+  }
+  .price-card__ctas {
+    display: flex;
+    gap: 0.75rem;
+    flex-wrap: wrap;
+  }
+
+  .price-side {
+    display: grid;
+    gap: 1rem;
+  }
+  .price-side__card {
+    background: white;
+    border-radius: 20px;
+    padding: 1.75rem;
+    border: 1px solid var(--color-brand-border);
+  }
+  .installment h3 {
+    font-size: 1.35rem;
+    margin-bottom: 0.4rem;
+  }
+  .price-side__lead {
+    color: var(--color-brand-muted);
+    font-size: 0.95rem;
+    margin-bottom: 1.25rem;
+  }
+  .installment__tabs {
+    display: flex;
+    gap: 0.4rem;
+    padding: 0.35rem;
+    background: var(--color-brand-navy-50);
+    border-radius: 12px;
+    margin-bottom: 1.5rem;
+  }
+  .installment__tab {
+    flex: 1;
+    padding: 0.6rem 0.5rem;
+    background: transparent;
+    border: none;
+    border-radius: 8px;
+    font-weight: 600;
+    font-size: 0.9rem;
+    color: var(--color-brand-muted);
+    cursor: pointer;
+    transition: background 0.2s, color 0.2s;
+  }
+  .installment__tab.active {
+    background: white;
+    color: var(--color-brand-navy);
+    box-shadow: var(--shadow-soft);
+  }
+  .installment__result {
+    display: flex;
+    align-items: baseline;
+    gap: 0.4rem;
+    margin-bottom: 0.5rem;
+  }
+  .installment__pmt {
+    font-family: var(--font-display);
+    font-weight: 800;
+    font-size: 2.75rem;
+    color: var(--color-brand-orange);
+    line-height: 1;
+    letter-spacing: -0.03em;
+    font-variant-numeric: tabular-nums;
+  }
+  .installment__cur {
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: 1.25rem;
+    color: var(--color-brand-muted);
+  }
+  .installment__total {
+    color: var(--color-brand-muted);
+    font-size: 0.88rem;
+  }
+  .installment__total strong {
+    color: var(--color-brand-ink);
+  }
+
+  .promo {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 0.75rem 1rem;
+    align-items: center;
+  }
+  .promo__icon {
+    font-size: 1.75rem;
+    grid-row: span 2;
+  }
+  .promo h4 {
+    font-size: 1rem;
+    font-family: var(--font-display);
+    font-weight: 700;
+  }
+  .promo p {
+    color: var(--color-brand-muted);
+    font-size: 0.88rem;
+    line-height: 1.4;
+  }
+
+  .pricing__fine {
+    margin-top: 2rem;
+    font-size: 0.85rem;
+    color: var(--color-brand-muted);
+    text-align: center;
+  }
+
+  @media (max-width: 960px) {
+    .pricing__grid { grid-template-columns: 1fr; }
+  }
+  @media (max-width: 640px) {
+    .pricing { padding: 3.5rem 1rem; }
+    .price-card { padding: 1.5rem; }
+  }
+</style>
+
+<script define:vars={{ base: SITE.priceFrom }}>
+  const tabs = document.querySelectorAll('.installment__tab');
+  const pmt = document.getElementById('installmentPayment');
+  tabs.forEach((t) => {
+    t.addEventListener('click', () => {
+      tabs.forEach((x) => x.classList.remove('active'));
+      tabs.forEach((x) => x.setAttribute('aria-selected', 'false'));
+      t.classList.add('active');
+      t.setAttribute('aria-selected', 'true');
+      const months = parseInt(t.getAttribute('data-months') || '6', 10);
+      if (pmt) pmt.textContent = Math.round(base / months).toLocaleString('ru-RU');
+    });
+  });
+</script>
