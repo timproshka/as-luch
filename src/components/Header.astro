@@ -5,12 +5,7 @@ import { NAV_LINKS, SITE } from '../lib/site';
 <header class="site-header" id="siteHeader">
   <div class="site-header__inner">
     <a href="/" class="site-header__brand" aria-label={SITE.name}>
-      <span class="brand-mark">
-        <svg width="28" height="28" viewBox="0 0 28 28" fill="none" aria-hidden="true">
-          <circle cx="14" cy="14" r="13" stroke="currentColor" stroke-width="2" />
-          <path d="M14 6L18 18H10L14 6Z" fill="currentColor" />
-        </svg>
-      </span>
+      <img src="/images/logo.png" alt="" class="brand-mark" width="48" height="48" decoding="async" fetchpriority="high" />
       <span class="brand-name">
         <span class="brand-name__top">АС-Луч</span>
         <span class="brand-name__sub">автошкола с 2002</span>
@@ -66,14 +61,12 @@ import { NAV_LINKS, SITE } from '../lib/site';
     text-decoration: none;
   }
   .brand-mark {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    width: 40px;
-    height: 40px;
-    border-radius: 12px;
-    background: var(--color-brand-navy);
-    color: white;
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    object-fit: cover;
+    display: block;
+    flex-shrink: 0;
   }
   .brand-name {
     display: flex;
