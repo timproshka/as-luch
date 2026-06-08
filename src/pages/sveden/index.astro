@@ -1,0 +1,31 @@
+---
+import SvedenLayout from '../../layouts/SvedenLayout.astro';
+import { SVEDEN_LINKS } from '../../lib/site';
+---
+
+<SvedenLayout
+  title="Сведения об образовательной организации"
+  description="Сведения об образовательной организации ЧУ ДПО «Луч» (автошкола АС-Луч, Пермь) в соответствии со ст. 29 ФЗ № 273-ФЗ «Об образовании в РФ»"
+>
+  <p>
+    Информация на этой странице публикуется в&nbsp;соответствии с&nbsp;требованиями:
+  </p>
+  <ul>
+    <li>Федерального закона №&nbsp;273-ФЗ «Об&nbsp;образовании в&nbsp;Российской Федерации», ст. 29;</li>
+    <li>Постановления Правительства РФ №&nbsp;582 от&nbsp;10.07.2013 (с&nbsp;изменениями от&nbsp;2023);</li>
+    <li>Приказа Рособрнадзора №&nbsp;1493 от&nbsp;14.08.2020.</li>
+  </ul>
+
+  <h2>Разделы</h2>
+  <ul>
+    {SVEDEN_LINKS.map((link) => (
+      <li><a href={link.href}>{link.label}</a></li>
+    ))}
+  </ul>
+
+  <div class="doc-note">
+    Часть документов временно отсутствует — ведётся работа по&nbsp;их&nbsp;загрузке в&nbsp;электронном виде.
+    По&nbsp;любому документу можно обратиться в&nbsp;приёмную автошколы по&nbsp;телефону (342) 226-41-41
+    или на&nbsp;e-mail <a href="mailto:Nikulskaya_olga@mail.ru">Nikulskaya_olga@mail.ru</a>.
+  </div>
+</SvedenLayout>

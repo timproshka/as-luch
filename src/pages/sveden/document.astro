@@ -1,0 +1,69 @@
+---
+import SvedenLayout from '../../layouts/SvedenLayout.astro';
+import { SITE } from '../../lib/site';
+
+const { documents } = SITE;
+
+function formatDate(d?: string): string | null {
+  if (!d) return null;
+  return new Date(d).toLocaleDateString('ru-RU');
+}
+
+const groupsOrder = [
+  { id: 'charter',    title: 'Устав организации' },
+  { id: 'license',    title: 'Лицензия на осуществление образовательной деятельности' },
+  { id: 'rules',      title: 'Локальные нормативные акты, правила, образцы' },
+  { id: 'program',    title: 'Образовательные программы и учебно-методические материалы' },
+  { id: 'inspection', title: 'Акты проверок и заключения надзорных органов' },
+  { id: 'other',      title: 'Иные документы' },
+] as const;
+---
+
+<SvedenLayout title="Документы">
+  <p>
+    В&nbsp;настоящем разделе размещены копии основных документов организации. Полный комплект
+    документов по&nbsp;действующему Приказу Рособрнадзора №&nbsp;1493 формируется постепенно —
+    часть актов находится в&nbsp;процессе переоформления и&nbsp;будет размещена по&nbsp;мере готовности.
+  </p>
+
+  {groupsOrder.map((group) => {
+    const groupDocs = documents.filter((d) => d.category === group.id);
+    if (groupDocs.length === 0) return null;
+    return (
+      <section>
+        <h2>{group.title}</h2>
+        <table>
+          <thead>
+            <tr>
+              <th>Документ</th>
+              <th style="width: 120px">Дата</th>
+              <th style="width: 120px">Файл</th>
+            </tr>
+          </thead>
+          <tbody>
+            {groupDocs.map((doc) => (
+              <tr>
+                <td>{doc.title}</td>
+                <td>{formatDate(doc.date) ?? '—'}</td>
+                <td>
+                  {doc.available ? (
+                    <a href={doc.fileUrl} target="_blank" rel="noopener">Скачать PDF</a>
+                  ) : (
+                    <span class="doc-missing">В процессе загрузки</span>
+                  )}
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </section>
+    );
+  })}
+
+  <div class="doc-note">
+    Если Вам нужен документ, которого здесь пока нет&nbsp;— обратитесь в&nbsp;приёмную автошколы:
+    тел. <a href={`tel:${SITE.phones[1].tel}`}>{SITE.phones[1].label}</a>,
+    e-mail <a href={`mailto:${SITE.email}`}>{SITE.email}</a>. Документ будет выслан в&nbsp;электронном
+    виде в&nbsp;течение 1&nbsp;рабочего&nbsp;дня.
+  </div>
+</SvedenLayout>

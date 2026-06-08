@@ -2,14 +2,12 @@
 import { SITE } from '../lib/site';
 
 const includes = [
-  '134 часа теории (очно + онлайн-тренажёр)',
-  'Минимум 56 часов вождения: автодром + город',
-  'Учебные материалы и ПДД в подарок',
-  'Медосмотр — помогаем организовать',
-  'Индивидуальные занятия на компьютере',
+  'Теоретические занятия по программе №505',
+  'Практическое вождение: автодром + город',
+  'ГСМ (топливо) учебных машин',
+  'Индивидуальные занятия на компьютере и автотренажёре',
   'Внутренний экзамен в автошколе',
-  'Сопровождение до экзамена в ГИБДД',
-  'Пересдача внутреннего экзамена — бесплатно',
+  'Своя закрытая площадка в д. Ясыри',
 ];
 
 const installments = [
@@ -60,8 +58,8 @@ const installments = [
 
       <div class="price-side reveal-right">
         <div class="price-side__card installment">
-          <h3>Рассрочка 0%</h3>
-          <p class="price-side__lead">Без банка, без переплат. Удобный платёж по&nbsp;выбору:</p>
+          <h3>Рассрочка</h3>
+          <p class="price-side__lead">Первый взнос&nbsp;— <strong>от&nbsp;3 000&nbsp;₽</strong>. Остаток&nbsp;— удобными платежами:</p>
 
           <div class="installment__tabs" role="tablist">
             {installments.map((opt, i) => (
@@ -79,31 +77,31 @@ const installments = [
 
           <div class="installment__result">
             <span class="installment__pmt" id="installmentPayment">
-              {Math.round(SITE.priceFrom / 6).toLocaleString('ru-RU')}
+              {Math.round((SITE.priceFrom - 3000) / 6).toLocaleString('ru-RU')}
             </span>
             <span class="installment__cur">₽/мес</span>
           </div>
           <p class="installment__total">
-            Итого: <strong>{SITE.priceFrom.toLocaleString('ru-RU')} ₽</strong> — без переплат
+            После первого взноса 3&nbsp;000&nbsp;₽. Полные условия&nbsp;— при&nbsp;заключении договора.
           </p>
-        </div>
-
-        <div class="price-side__card promo">
-          <div class="promo__icon">🎁</div>
-          <h4>Скидка 10% студентам</h4>
-          <p>По&nbsp;студенческому или&nbsp;зачётке любого ВУЗа/колледжа&nbsp;Перми.</p>
         </div>
 
         <div class="price-side__card promo">
           <div class="promo__icon">🚗</div>
           <h4>Бесплатное вводное занятие</h4>
-          <p>Знакомство с&nbsp;машиной и&nbsp;инструктором — без&nbsp;оплаты и&nbsp;обязательств.</p>
+          <p>Знакомство с&nbsp;машиной и&nbsp;инструктором&nbsp;— без&nbsp;оплаты и&nbsp;обязательств.</p>
+        </div>
+
+        <div class="price-side__card promo">
+          <div class="promo__icon">🧭</div>
+          <h4>Сдача в&nbsp;ГИБДД области</h4>
+          <p>Без&nbsp;доплат. По&nbsp;желанию можно сдавать в&nbsp;Перми&nbsp;— уточняйте условия.</p>
         </div>
       </div>
     </div>
 
     <p class="pricing__fine">
-      * Цены на&nbsp;категории A и&nbsp;C&nbsp;— уточняйте по&nbsp;телефону. Стоимость медицинской справки и&nbsp;пошлины&nbsp;ГИБДД оплачиваются отдельно.
+      * Цена на&nbsp;категорию&nbsp;A&nbsp;— уточняйте по&nbsp;телефону. Стоимость медицинской справки и&nbsp;госпошлины&nbsp;ГИБДД оплачиваются отдельно.
     </p>
   </div>
 </section>
@@ -319,9 +317,10 @@ const installments = [
   }
 </style>
 
-<script define:vars={{ base: SITE.priceFrom }}>
+<script define:vars={{ base: SITE.priceFrom, firstPayment: SITE.promo.rassrochkaMinFirstPayment }}>
   const tabs = document.querySelectorAll('.installment__tab');
   const pmt = document.getElementById('installmentPayment');
+  const remainder = base - firstPayment;
   tabs.forEach((t) => {
     t.addEventListener('click', () => {
       tabs.forEach((x) => x.classList.remove('active'));
@@ -329,7 +328,7 @@ const installments = [
       t.classList.add('active');
       t.setAttribute('aria-selected', 'true');
       const months = parseInt(t.getAttribute('data-months') || '6', 10);
-      if (pmt) pmt.textContent = Math.round(base / months).toLocaleString('ru-RU');
+      if (pmt) pmt.textContent = Math.round(remainder / months).toLocaleString('ru-RU');
     });
   });
 </script>

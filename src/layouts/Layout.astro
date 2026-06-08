@@ -8,8 +8,8 @@ interface Props {
 }
 
 const {
-  title = `${SITE.name} — автошкола в Перми с 2002 года | Категории A, B, C`,
-  description = `Автошкола «АС-Луч» в Перми: 3 филиала, 8 учебных авто, 23 года на рынке. Обучение на категории А, В, С от ${SITE.priceFrom.toLocaleString('ru-RU')} ₽. Лицензия, рассрочка, бесплатное вводное занятие.`,
+  title = `${SITE.name} — автошкола в Перми с 2002 года | Категории A и B`,
+  description = `Автошкола «АС-Луч» в Перми: 4 учебных класса, своя площадка в Ясырях, 8 учебных авто и 2 мотоцикла. Категории A и B от ${SITE.priceFrom.toLocaleString('ru-RU')} ₽. Лицензия, рассрочка от 3 000 ₽, бесплатное вводное занятие.`,
   canonical = SITE.url,
 } = Astro.props;
 ---
@@ -66,17 +66,25 @@ const {
         priceCurrency: 'RUB',
         availability: 'https://schema.org/InStock',
       })),
-      location: SITE.branches.map(b => ({
-        '@type': 'Place',
-        name: b.title,
-        address: {
-          '@type': 'PostalAddress',
-          streetAddress: b.address,
-          addressLocality: b.district.includes('Пермский') ? 'с. Гамово' : 'Пермь',
-          addressRegion: 'Пермский край',
-          addressCountry: 'RU',
-        },
-      })),
+      location: SITE.branches.map(b => {
+        const localityMap: Record<string, string> = {
+          kombaynerov: 'Пермь',
+          leonova: 'Пермь',
+          kondratovo: 'д. Кондратово',
+          gamovo: 'д. Гамово',
+        };
+        return {
+          '@type': 'Place',
+          name: b.title,
+          address: {
+            '@type': 'PostalAddress',
+            streetAddress: b.address,
+            addressLocality: localityMap[b.id] ?? 'Пермь',
+            addressRegion: 'Пермский край',
+            addressCountry: 'RU',
+          },
+        };
+      }),
     })} />
 
     <style is:global>

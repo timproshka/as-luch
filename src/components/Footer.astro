@@ -1,6 +1,8 @@
 ---
 import { SITE, NAV_LINKS } from '../lib/site';
 const year = new Date().getFullYear();
+const { legal, license } = SITE;
+const issuedAt = new Date(license.issuedAt).toLocaleDateString('ru-RU');
 ---
 
 <footer class="footer">
@@ -16,7 +18,8 @@ const year = new Date().getFullYear();
         </div>
       </div>
       <p class="footer__about">
-        Автошкола в&nbsp;Перми: 3&nbsp;филиала, 8&nbsp;учебных автомобилей, обучение по&nbsp;категориям А, B, С&nbsp;с&nbsp;2002&nbsp;года. Работаем по&nbsp;действующей лицензии Министерства образования Пермского края.
+        Автошкола в&nbsp;Перми: 4&nbsp;учебных класса, 10&nbsp;учебных автомобилей, 2&nbsp;мотоцикла,
+        своя площадка в&nbsp;Ясырях. Обучение по&nbsp;категориям A и&nbsp;B с&nbsp;2002&nbsp;года.
       </p>
     </div>
 
@@ -26,19 +29,17 @@ const year = new Date().getFullYear();
         {NAV_LINKS.map((l) => (
           <li><a href={l.href}>{l.label}</a></li>
         ))}
-        <li><a href="/privacy">Политика конфиденциальности</a></li>
+        <li><a href="/sveden/common">Сведения об организации</a></li>
       </ul>
     </div>
 
     <div class="footer__col">
-      <h4>Филиалы</h4>
+      <h4>Документы</h4>
       <ul>
-        {SITE.branches.map((b) => (
-          <li>
-            <div class="footer__branch">{b.title}</div>
-            <div class="footer__district">{b.district}</div>
-          </li>
-        ))}
+        <li><a href="/sveden/document">Все документы</a></li>
+        <li><a href="/sveden/paid_edu">Платные услуги</a></li>
+        <li><a href="/privacy">Политика персональных данных</a></li>
+        <li><a href="/terms">Пользовательское соглашение</a></li>
       </ul>
     </div>
 
@@ -48,22 +49,54 @@ const year = new Date().getFullYear();
         {SITE.phones.map((p) => (
           <li><a href={`tel:${p.tel}`}>{p.label}</a></li>
         ))}
-        <li>
-          <a href={SITE.whatsapp} target="_blank" rel="noopener">WhatsApp</a>
-        </li>
-        <li>
-          <a href={SITE.socials.vk} target="_blank" rel="noopener">ВКонтакте</a>
-        </li>
+        <li><a href={`mailto:${SITE.email}`}>{SITE.email}</a></li>
+        <li><a href={SITE.socials.vk} target="_blank" rel="noopener">ВКонтакте</a></li>
       </ul>
+    </div>
+  </div>
+
+  <div class="footer__legal">
+    <div class="footer__legal-inner">
+      <p class="footer__legal-name">{legal.fullName}</p>
+      <dl class="footer__legal-grid">
+        <div>
+          <dt>Юридический адрес</dt>
+          <dd>{legal.legalAddress}</dd>
+        </div>
+        <div>
+          <dt>ИНН</dt>
+          <dd>{legal.inn}</dd>
+        </div>
+        <div>
+          <dt>КПП</dt>
+          <dd>{legal.kpp}</dd>
+        </div>
+        <div>
+          <dt>ОГРН</dt>
+          <dd>{legal.ogrn}</dd>
+        </div>
+        <div>
+          <dt>Лицензия</dt>
+          <dd>
+            №&nbsp;{license.number} от&nbsp;{issuedAt} ({license.series} №&nbsp;{license.blankNumber})
+          </dd>
+        </div>
+        <div>
+          <dt>Кем выдана</dt>
+          <dd>{license.issuedBy}</dd>
+        </div>
+      </dl>
+      <p class="footer__legal-claims">
+        Претензии по&nbsp;качеству образовательных услуг принимаются в&nbsp;приёмной автошколы письменно
+        или на&nbsp;e-mail <a href={`mailto:${SITE.email}`}>{SITE.email}</a>. Срок рассмотрения — 10&nbsp;рабочих дней.
+      </p>
     </div>
   </div>
 
   <div class="footer__bottom">
     <div class="footer__bottom-inner">
       <p>© {year} {SITE.legalName}. Все права защищены.</p>
-      <p class="footer__license">
-        Лицензия: {SITE.license.issuedBy}
-      </p>
+      <p class="footer__license-link"><a href="/sveden/common">Сведения об образовательной организации</a></p>
     </div>
   </div>
 </footer>
@@ -147,18 +180,55 @@ const year = new Date().getFullYear();
   .footer__col a:hover {
     color: var(--color-brand-orange);
   }
-  .footer__branch {
-    color: white;
-    font-weight: 600;
-    font-size: 0.95rem;
-  }
-  .footer__district {
-    color: rgba(255, 255, 255, 0.5);
-    font-size: 0.8rem;
-    margin-top: 2px;
-  }
   .footer__contacts li {
     font-weight: 600;
+  }
+
+  .footer__legal {
+    border-top: 1px solid rgba(255, 255, 255, 0.08);
+    padding: 1.75rem 0;
+  }
+  .footer__legal-inner {
+    max-width: 1240px;
+    margin: 0 auto;
+    color: rgba(255, 255, 255, 0.72);
+    font-size: 0.86rem;
+    line-height: 1.55;
+  }
+  .footer__legal-name {
+    font-weight: 600;
+    color: white;
+    margin-bottom: 0.85rem;
+  }
+  .footer__legal-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 0.65rem 2rem;
+    margin: 0 0 1rem;
+  }
+  .footer__legal-grid div {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+  .footer__legal-grid dt {
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: rgba(255, 255, 255, 0.45);
+    font-weight: 500;
+  }
+  .footer__legal-grid dd {
+    margin: 0;
+    color: rgba(255, 255, 255, 0.88);
+  }
+  .footer__legal-claims {
+    margin: 0;
+    font-size: 0.82rem;
+    color: rgba(255, 255, 255, 0.55);
+  }
+  .footer__legal-claims a {
+    color: rgba(255, 255, 255, 0.85);
   }
 
   .footer__bottom {
@@ -174,6 +244,13 @@ const year = new Date().getFullYear();
     flex-wrap: wrap;
     color: rgba(255, 255, 255, 0.5);
     font-size: 0.82rem;
+  }
+  .footer__bottom-inner a {
+    color: rgba(255, 255, 255, 0.75);
+    text-decoration: none;
+  }
+  .footer__bottom-inner a:hover {
+    color: white;
   }
 
   @media (max-width: 980px) {

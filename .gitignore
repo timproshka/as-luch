@@ -27,3 +27,5 @@ pnpm-debug.log*
 # vscode
 .vscode/*
 !.vscode/extensions.json
+
+.vercel

@@ -1,0 +1,84 @@
+---
+import SvedenLayout from '../../layouts/SvedenLayout.astro';
+import { SITE } from '../../lib/site';
+
+const { director, branches, legal } = SITE;
+const directorSince = new Date(director.since).toLocaleDateString('ru-RU');
+---
+
+<SvedenLayout title="Структура и органы управления образовательной организацией">
+  <p>
+    ЧУ&nbsp;ДПО&nbsp;«Луч» — это негосударственная некоммерческая организация, действующая на&nbsp;основании
+    Устава. Единоличным исполнительным органом является директор.
+  </p>
+
+  <h2>Руководство</h2>
+  <dl>
+    <dt>Должность</dt>
+    <dd>{director.position}</dd>
+
+    <dt>ФИО</dt>
+    <dd>{director.name}</dd>
+
+    <dt>В должности с</dt>
+    <dd>{directorSince}</dd>
+
+    <dt>Контакты</dt>
+    <dd>{director.contactHint}</dd>
+  </dl>
+
+  <h2>Учредитель</h2>
+  <p>
+    Никульская Ольга Константиновна — учредитель организации с&nbsp;момента создания (07.10.2002),
+    доля&nbsp;участия 100%.
+  </p>
+
+  <h2>Структурные подразделения (места осуществления образовательной деятельности)</h2>
+  <p>
+    Организация не&nbsp;имеет обособленных филиалов и&nbsp;представительств. Учебная деятельность
+    ведётся в&nbsp;4&nbsp;учебных классах и&nbsp;на&nbsp;1&nbsp;закрытой площадке для обучения
+    практическому&nbsp;вождению.
+  </p>
+
+  <table>
+    <thead>
+      <tr>
+        <th>Подразделение</th>
+        <th>Адрес</th>
+        <th>Назначение</th>
+      </tr>
+    </thead>
+    <tbody>
+      {branches.map((b) => (
+        <tr>
+          <td>Учебный класс {b.title}</td>
+          <td>{b.address}</td>
+          <td>Теоретическая подготовка</td>
+        </tr>
+      ))}
+      <tr>
+        <td>Закрытая площадка (автодром)</td>
+        <td>{SITE.platformArea.address}</td>
+        <td>Практическая подготовка (вождение)</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h2>Положение о структурных подразделениях</h2>
+  <p class="doc-missing">
+    Отдельное положение не&nbsp;требуется: все учебные классы и&nbsp;автодром работают в&nbsp;рамках
+    единого Устава ЧУ&nbsp;ДПО&nbsp;«Луч» (<a href="/sveden/document">см. раздел «Документы»</a>).
+  </p>
+
+  <h2>Контактная информация органов управления</h2>
+  <dl>
+    <dt>Почтовый адрес</dt>
+    <dd>{legal.legalAddress}</dd>
+
+    <dt>Телефон</dt>
+    <dd>{SITE.phones[1].label}</dd>
+
+    <dt>E-mail</dt>
+    <dd><a href={`mailto:${SITE.email}`}>{SITE.email}</a></dd>
+  </dl>
+</SvedenLayout>

@@ -1,0 +1,92 @@
+---
+import SvedenLayout from '../../layouts/SvedenLayout.astro';
+import { SITE } from '../../lib/site';
+
+const { legal, branches, email, phones, url } = SITE;
+const foundedDate = new Date(legal.foundedOn).toLocaleDateString('ru-RU', {
+  day: 'numeric',
+  month: 'long',
+  year: 'numeric',
+});
+---
+
+<SvedenLayout title="Основные сведения">
+  <dl>
+    <dt>Полное наименование</dt>
+    <dd>{legal.fullName}</dd>
+
+    <dt>Сокращённое наименование</dt>
+    <dd>{legal.shortName}</dd>
+
+    <dt>Дата создания</dt>
+    <dd>{foundedDate}</dd>
+
+    <dt>Учредитель</dt>
+    <dd>Никульская Ольга Константиновна (100% — с 07.10.2002)</dd>
+
+    <dt>Место нахождения (юридический адрес)</dt>
+    <dd>{legal.legalAddress}</dd>
+
+    <dt>ИНН / КПП / ОГРН / ОКПО</dt>
+    <dd>{legal.inn} / {legal.kpp} / {legal.ogrn} / {legal.okpo}</dd>
+
+    <dt>Основной вид деятельности (ОКВЭД)</dt>
+    <dd>{legal.okved}</dd>
+
+    <dt>Телефоны</dt>
+    <dd>
+      {phones.map((p, i) => (
+        <>
+          <a href={`tel:${p.tel}`}>{p.label}</a>{i < phones.length - 1 ? ', ' : ''}
+        </>
+      ))}
+    </dd>
+
+    <dt>Электронная почта</dt>
+    <dd><a href={`mailto:${email}`}>{email}</a></dd>
+
+    <dt>Официальный сайт</dt>
+    <dd><a href={url}>{url.replace('https://', '')}</a></dd>
+  </dl>
+
+  <h2>Адреса мест осуществления образовательной деятельности</h2>
+  <table>
+    <thead>
+      <tr>
+        <th>Филиал</th>
+        <th>Адрес</th>
+        <th>Район</th>
+        <th>Площадь, м²</th>
+        <th>Мест</th>
+        <th>Режим работы</th>
+      </tr>
+    </thead>
+    <tbody>
+      {branches.map((branch) => (
+        <tr>
+          <td>{branch.badge ? `${branch.title} (${branch.badge})` : branch.title}</td>
+          <td>{branch.address}</td>
+          <td>{branch.district}</td>
+          <td>{branch.areaSqm ?? '—'}</td>
+          <td>{branch.seats ?? '—'}</td>
+          <td>{branch.hours}</td>
+        </tr>
+      ))}
+      <tr>
+        <td>Автодром (закрытая площадка)</td>
+        <td>{SITE.platformArea.address}</td>
+        <td>Пермский район</td>
+        <td>{Math.round(SITE.platformArea.sizeHa * 10000)}</td>
+        <td>—</td>
+        <td>По расписанию занятий</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h2>Филиалов и представительств нет</h2>
+  <p>
+    Все помещения, в&nbsp;которых осуществляется образовательная деятельность, являются обособленными
+    подразделениями ЧУ&nbsp;ДПО&nbsp;«Луч». Филиалов и&nbsp;представительств, в&nbsp;смысле
+    ст.&nbsp;55&nbsp;ГК&nbsp;РФ, организация не&nbsp;имеет.
+  </p>
+</SvedenLayout>
