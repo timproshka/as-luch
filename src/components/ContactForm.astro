@@ -53,15 +53,32 @@ import { SITE } from '../lib/site';
         <input type="tel" name="phone" required placeholder="+7 (___) ___-__-__" autocomplete="tel" inputmode="tel" />
       </label>
 
-      <label class="field">
-        <span class="field__label">Категория</span>
-        <select name="category" required>
-          <option value="B" selected>B — легковой автомобиль</option>
-          <option value="A">A — мотоцикл</option>
-          <option value="C">C — грузовой автомобиль</option>
-          <option value="?">Пока не определился — нужна консультация</option>
-        </select>
-      </label>
+      <fieldset class="field field--cat">
+        <legend class="field__label">Категория</legend>
+        <div class="cat-choice">
+          <label class="cat-choice__item">
+            <input type="radio" name="category" value="B" checked />
+            <span class="cat-choice__chip">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 17h14M5 17l1.5-5h11L19 17M5 17v2h2v-2M17 17v2h2v-2M7 12l1-3h8l1 3"/></svg>
+              B&nbsp;— легковой
+            </span>
+          </label>
+          <label class="cat-choice__item">
+            <input type="radio" name="category" value="A" />
+            <span class="cat-choice__chip">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 17a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm14 0a3 3 0 1 0 0-6 3 3 0 0 0 0 6zM9 7h3l3 6h-5M9 7l2 6M14 6h3v2"/></svg>
+              A&nbsp;— мотоцикл
+            </span>
+          </label>
+          <label class="cat-choice__item">
+            <input type="radio" name="category" value="?" />
+            <span class="cat-choice__chip">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+              Не&nbsp;определился
+            </span>
+          </label>
+        </div>
+      </fieldset>
 
       <button type="submit" class="btn-primary contact__submit">
         <span class="contact__submit-text">Забронировать место</span>
@@ -196,8 +213,7 @@ import { SITE } from '../lib/site';
     font-weight: 600;
     margin-bottom: 0.4rem;
   }
-  .field input,
-  .field select {
+  .field input {
     width: 100%;
     padding: 0.85rem 1rem;
     background: var(--color-brand-cream);
@@ -208,14 +224,70 @@ import { SITE } from '../lib/site';
     font-family: inherit;
     transition: border-color 0.2s, background 0.2s;
   }
-  .field input:focus,
-  .field select:focus {
+  .field input:focus {
     outline: none;
     border-color: var(--color-brand-navy);
     background: white;
   }
   .field input::placeholder {
     color: var(--color-brand-muted);
+  }
+
+  .field--cat {
+    border: 0;
+    padding: 0;
+    margin: 0 0 1rem;
+    min-width: 0;
+  }
+  .cat-choice {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+  .cat-choice__item input {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    opacity: 0;
+    pointer-events: none;
+  }
+  .cat-choice__chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.45rem;
+    padding: 0.6rem 1rem;
+    background: var(--color-brand-cream);
+    border: 1.5px solid transparent;
+    border-radius: 999px;
+    font-size: 0.92rem;
+    font-weight: 600;
+    color: var(--color-brand-ink);
+    cursor: pointer;
+    user-select: none;
+    transition: background 0.2s, border-color 0.2s, color 0.2s, transform 0.15s;
+  }
+  .cat-choice__chip svg {
+    color: var(--color-brand-muted);
+    flex-shrink: 0;
+    transition: color 0.2s;
+  }
+  .cat-choice__item:hover .cat-choice__chip {
+    border-color: var(--color-brand-navy);
+  }
+  .cat-choice__item:active .cat-choice__chip {
+    transform: scale(0.97);
+  }
+  .cat-choice__item input:checked + .cat-choice__chip {
+    background: var(--color-brand-navy);
+    border-color: var(--color-brand-navy);
+    color: white;
+  }
+  .cat-choice__item input:checked + .cat-choice__chip svg {
+    color: var(--color-brand-orange);
+  }
+  .cat-choice__item input:focus-visible + .cat-choice__chip {
+    outline: 2px solid var(--color-brand-orange);
+    outline-offset: 2px;
   }
   .contact__submit {
     width: 100%;
