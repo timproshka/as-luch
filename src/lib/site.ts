@@ -12,6 +12,7 @@ export interface Branch {
   hours: string;
   areaSqm?: number;
   seats?: number;
+  /** [lat, lon] — точные координаты здания (геокодированы по адресу, OSM Nominatim 2026-06-12) */
   coords: [number, number];
 }
 
@@ -169,7 +170,7 @@ export const SITE: SiteConfig = {
       hours: 'Пн-Пт 9:00–20:00, Сб 10:00–18:00',
       areaSqm: 75.7,
       seats: 16,
-      coords: [58.003456, 56.231234],
+      coords: [57.9757655, 56.1843189],
     },
     {
       id: 'leonova',
@@ -179,7 +180,7 @@ export const SITE: SiteConfig = {
       hours: 'Ежедневно 10:00–17:00',
       areaSqm: 56.7,
       seats: 16,
-      coords: [58.00001, 56.17000],
+      coords: [57.9646476, 56.1766549],
     },
     {
       id: 'kondratovo',
@@ -189,7 +190,7 @@ export const SITE: SiteConfig = {
       hours: 'Уточняется',
       areaSqm: 61.1,
       seats: 16,
-      coords: [58.00300, 56.12500],
+      coords: [57.9750409, 56.1015245],
     },
     {
       id: 'gamovo',
@@ -199,7 +200,7 @@ export const SITE: SiteConfig = {
       hours: 'Уточняется',
       areaSqm: 40.5,
       seats: 10,
-      coords: [57.92000, 56.14000],
+      coords: [57.8689722, 56.0986123],
     },
   ],
   categories: [
