@@ -2,17 +2,19 @@
 import { SITE } from '../lib/site';
 
 // Показываем ТОЛЬКО реальные фото машин, которые у нас есть (3 шт).
-// Никаких пустых плиток-заглушек и никаких фото с лицами незарегистрированных инструкторов.
+// Никаких пустых плиток-заглушек.
 const cars = SITE.fleet.filter((f) => f.cat === 'B' && f.inLicenseMTO);
 const motos = SITE.fleet.filter((f) => f.cat === 'A' && f.inLicenseMTO);
 const akppCount = cars.filter((c) => c.trans === 'АКПП').length;
 const mkppCount = cars.filter((c) => c.trans === 'МКПП').length;
 
-// 3 реальных фото — файлы физически лежат в public/images/fleet/
+// 3 реальных фото — файлы физически лежат в public/images/fleet/.
+// Кадры с инструкторами выбраны пользователем 2026-06-12.
+// pos = object-position: фото вертикальные, держим лицо и знак «У» в кадре 4:3.
 const gallery = [
-  { name: 'Lada 219010', trans: 'МКПП', img: '/images/fleet/lada-219/car-summer-01.jpg' },
-  { name: 'Lada Granta', trans: 'МКПП', img: '/images/fleet/granta-black/car-winter-01.jpg' },
-  { name: 'Kia Rio', trans: 'АКПП', img: '/images/fleet/kia-rio/instructor-01.jpg' },
+  { name: 'Lada 219010', trans: 'МКПП', img: '/images/fleet/lada-219/instructor-01.jpg', pos: '50% 40%' },
+  { name: 'Lada Granta', trans: 'МКПП', img: '/images/fleet/granta-black/instructor-02.jpg', pos: '50% 38%' },
+  { name: 'Kia Rio', trans: 'АКПП', img: '/images/fleet/kia-rio/instructor-01.jpg', pos: '50% 50%' },
 ];
 ---
 
@@ -30,7 +32,7 @@ const gallery = [
       {gallery.map((c) => (
         <figure class="fleet-card">
           <div class="fleet-card__photo">
-            <img src={c.img} alt={`Учебный автомобиль ${c.name} автошколы «АС-Луч»`} loading="lazy" />
+            <img src={c.img} alt={`Учебный автомобиль ${c.name} автошколы «АС-Луч»`} loading="lazy" style={`object-position: ${c.pos}`} />
             <span class="fleet-card__badge">{c.trans}</span>
             <span class="fleet-card__u" aria-hidden="true">У</span>
           </div>
